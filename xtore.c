@@ -17,13 +17,13 @@ void tela_atualizar_clientes(void);
 void tela_deletar_clientes(void);
 
 
-void tela_menu_produtos(void);
+int tela_menu_produtos(void);
 void tela_cadastrar_produtos(void);
 void tela_pesquisar_produtos(void);
 void tela_atualizar_produtos(void);
 void tela_deletar_produtos(void);
 
-void tela_menu_relatorios(void);
+int tela_menu_relatorios(void);
 
 void tela_relatorios_clientes(void);
 void tela_relatorio_geral_clientes(void);
@@ -34,7 +34,7 @@ void tela_relatorio_geral_produtos(void);
 void tela_relatorios_vendas(void);
 void tela_relatorio_geral_vendas(void);
 
-void tela_menu_vendas(void);
+int tela_menu_vendas(void);
 void tela_menu_cadastrar_vendas(void);
 void tela_adicionar_produto_venda(void);
 void tela_remover_produto_venda(void);
@@ -49,13 +49,11 @@ void tela_equipe(void);
 // Programa principal
 int main(void) {
   setlocale(LC_ALL, ""); // configuração dos caracteres especiais
-  int op;
+  int op = tela_menu_principal();
   while (op != 0) {
-    op = tela_menu_principal();
     if (op == 1) {
-      int op2;
+      int op2 = tela_menu_clientes();
       while (op2 != 0) {
-        op2 = tela_menu_clientes();
         if (op2 == 1) {
           tela_cadastrar_clientes();
         } else if (op2 == 2) {
@@ -64,21 +62,64 @@ int main(void) {
           tela_atualizar_clientes();
         } else if (op2 == 4) {
           tela_deletar_clientes();
-        } else if (op2 == 0) {
         } else {
           printf("Opção inválida!\n");
         };
+        op2 = tela_menu_clientes();
       };
     } else if (op == 2) {
-      tela_menu_produtos();
+      int op2 = tela_menu_produtos();
+      while (op2 != 0) {
+        printf("$d", &op);
+        if (op2 == 1) {
+          tela_cadastrar_produtos();
+        } else if (op2 == 2) {
+          tela_pesquisar_produtos();
+        } else if (op2 == 3) {
+          tela_atualizar_produtos();
+        } else if (op2 == 4) {
+          tela_deletar_produtos();
+        } else {
+          printf("Escolha inválida!!!");
+        }
+        op2 = tela_menu_produtos();
+      }
     } else if (op == 3) {
-      tela_menu_relatorios();
+      int op2 = tela_menu_relatorios();
+      while (op2 != 0) {
+        if (op2 == 1) {
+          tela_relatorios_clientes();
+        } else if (op2 == 2) {
+          tela_relatorios_produtos();
+        } else if (op2 == 3) {
+          tela_relatorios_vendas();
+        } else {
+          printf("Escolha inválida!");
+        }
+        op2 = tela_menu_relatorios();
+      }
     } else if (op == 4) {
-      tela_menu_vendas();
-    } else if (op == 0) {
+      int op2 = tela_menu_vendas();
+      while (op2 != 0) {
+        if (op2 == 1) {
+          tela_menu_cadastrar_vendas();
+        } else if (op2 == 2) {
+          tela_pesquisar_vendas();
+        } else if (op2 == 3) {
+          tela_deletar_vendas();
+        } else {
+          printf("Escolha inválida!");
+        }
+        op2 = tela_menu_vendas();
+      }
+    } else if (op == 5) {
+      tela_sobre();
+    } else if (op == 6) {
+      tela_equipe();
     } else {
       printf("Escolha inválida!\n");
     };
+    op = tela_menu_principal();
   };
   // tela_menu_clientes();
   // tela_cadastrar_clientes();
@@ -153,6 +194,8 @@ int tela_menu_principal(void){
   printf("///           2 - Módulo Produto                                            ///\n");
   printf("///           3 - Módulo Relatórios                                         ///\n");
   printf("///           4 - Módulo Vendas                                             ///\n");
+  printf("///           5 - Sobre o Projeto                                           ///\n");
+  printf("///           6 - Sobre a Equipe                                            ///\n");
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
@@ -262,8 +305,8 @@ void tela_deletar_clientes(void){
 
 // Módulo produtos
 // Tela menu produtos
-void tela_menu_produtos(void){
-  char op;
+int tela_menu_produtos(void){
+  int op;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -276,12 +319,13 @@ void tela_menu_produtos(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
-  //scanf("%c", &op);
+  scanf("%d", &op);
   getchar();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
+  return op;
 }
 // Fim tela menu produtos
 
@@ -355,8 +399,8 @@ void tela_deletar_produtos(void){
 
 // Módulo relatórios
 // Tela menu relatorios
-void tela_menu_relatorios(void){
-  char op;
+int tela_menu_relatorios(void){
+  int op;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -368,12 +412,13 @@ void tela_menu_relatorios(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
-  //scanf("%c", &op);
+  scanf("%d", &op);
   getchar();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
+  return op;
 }
 // Fim tela menu relatorios
 
@@ -485,8 +530,8 @@ void tela_relatorio_geral_vendas(void){
 
 // Módulo vendas
 // Tela vendas
-void tela_menu_vendas(void){
-  char op;
+int tela_menu_vendas(void){
+  int op;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -499,12 +544,13 @@ void tela_menu_vendas(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
-  //scanf("%c", &op);
+  scanf("%d", &op);
   getchar();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
+  return op;
 }
 // Fim tela vendas
 
