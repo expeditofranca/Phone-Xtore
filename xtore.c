@@ -4,8 +4,9 @@
 // Importação dos módulos
 #include"clientes.h"
 #include"produtos.h"
-#include"relatorios.h"
+#include"funcionarios.h"
 #include"vendas.h"
+#include"relatorios.h"
 #include"cabecalhos.h"
 
 /* CRÉDITOS */
@@ -61,6 +62,22 @@ int main(void) {
         op2 = tela_menu_produtos();
       }
     } else if (op == 3) {
+      int op2 = tela_menu_funcionarios();
+      while (op2 != 0) {
+        if (op2 == 1) {
+          tela_cadastrar_funcionarios();
+        } else if (op2 == 2) {
+          tela_pesquisar_funcionarios();
+        } else if (op2 == 3) {
+          tela_atualizar_funcionarios();
+        } else if (op2 == 4) {
+          tela_deletar_funcionarios();
+        } else {
+          msg_escolha_invalida();
+        }
+        op2 = tela_menu_funcionarios();
+      }
+    } else if (op == 4) {
       int op2 = tela_menu_relatorios();
       while (op2 != 0) {
         if (op2 == 1) {
@@ -98,7 +115,7 @@ int main(void) {
         }
         op2 = tela_menu_relatorios();
       }
-    } else if (op == 4) {
+    } else if (op == 5) {
       int op2 = tela_menu_vendas();
       while (op2 != 0) {
         if (op2 == 1) {
@@ -126,9 +143,9 @@ int main(void) {
         }
         op2 = tela_menu_vendas();
       }
-    } else if (op == 5) {
-      tela_sobre();
     } else if (op == 6) {
+      tela_sobre();
+    } else if (op == 7) {
       tela_equipe();
     } else {
       msg_escolha_invalida();  
@@ -149,10 +166,11 @@ int tela_menu_principal(void){
   printf("///                                                                         ///\n");
   printf("///           1 - Módulo Cliente                                            ///\n");
   printf("///           2 - Módulo Produto                                            ///\n");
-  printf("///           3 - Módulo Relatórios                                         ///\n");
-  printf("///           4 - Módulo Vendas                                             ///\n");
-  printf("///           5 - Sobre o Projeto                                           ///\n");
-  printf("///           6 - Sobre a Equipe                                            ///\n");
+  printf("///           3 - Módulo Funcionários                                       ///\n");
+  printf("///           4 - Módulo Relatórios                                         ///\n");
+  printf("///           5 - Módulo Vendas                                             ///\n");
+  printf("///           6 - Sobre o Projeto                                           ///\n");
+  printf("///           7 - Sobre a Equipe                                            ///\n");
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
@@ -213,7 +231,7 @@ void tela_equipe(void){
 // Fim tela sobre a equipe
 
 void msg_escolha_invalida(void){
-printf("///////////////////////////////////////////////////////////////////////////////\n");
-printf("///                            Escolha inválida!                            ///\n");
-printf("///////////////////////////////////////////////////////////////////////////////\n\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                            Escolha inválida!                            ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n\n");
 }
