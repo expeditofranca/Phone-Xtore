@@ -1,4 +1,5 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include"cabecalhos.h"
 
 // Módulo relatórios
 // Tela menu relatorios
@@ -15,10 +16,9 @@ int tela_menu_relatorios(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;
@@ -37,10 +37,9 @@ int tela_relatorios_clientes(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;
@@ -73,10 +72,9 @@ int tela_relatorios_produtos(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;
@@ -109,10 +107,9 @@ int tela_relatorios_vendas(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;

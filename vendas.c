@@ -1,4 +1,5 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include"cabecalhos.h"
 
 // Módulo vendas
 // Tela vendas
@@ -38,15 +39,14 @@ int tela_menu_cadastrar_vendas(void){
   printf("///                                                                         ///\n");
   printf("///           1 - Adicionar Produto                                         ///\n");
   printf("///           2 - Remover Produto                                           ///\n");
-  printf("///           3 - Finalizar Venda                                           ///\n");
+  printf("///           3 - Finalizar Venda (Pagamento)                               ///\n");
   printf("///           4 - Cancelar Venda                                            ///\n");
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;

@@ -1,4 +1,5 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include"cabecalhos.h"
 
 // Módulo clientes
 // Tela menu clientes
@@ -16,10 +17,9 @@ int tela_menu_clientes(void){
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
   scanf("%d", &op);
   getchar();
-  printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
   return op;
