@@ -1,5 +1,7 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include <string.h>
 #include"cabecalhos.h"
+#include"util.h"
 
 // Módulo vendas
 // Tela vendas
@@ -30,12 +32,11 @@ int tela_menu_vendas(void){
 // Tela cadastrar vendas
 int tela_menu_cadastrar_vendas(void){
   int op;
+  int saida = 1;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                         - - - - Menu Vendas - - - -                     ///\n");
-  printf("///                                                                         ///\n");
-  printf("///           Digite o CPF do cliente:                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           1 - Adicionar Produto                                         ///\n");
   printf("///           2 - Remover Produto                                           ///\n");
@@ -55,14 +56,25 @@ int tela_menu_cadastrar_vendas(void){
 
 // Tela adicionar produto venda
 void tela_adicionar_produto_venda(void){
+  int saida = 1;
+  int i;
+  char cod[6];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Adicionar Produto - - - -                    ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código/ a marca/ o modelo:                            ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  while(saida){
+    printf("Digite o código: \n");
+    scanf("%s", cod);
+    for(i = 0; i < strlen(cod); i++){
+      if(!ehNum(cod[i])){
+        printf("Código inválido! Digite novamente");
+        break;
+      }
+    }
+  }
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
@@ -71,14 +83,25 @@ void tela_adicionar_produto_venda(void){
 
 // Tela remover produto venda
 void tela_remover_produto_venda(void){
+  int saida = 1;
+  int i;
+  char cod[6];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Remover Produto - - - -                      ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código/ a marca/ o modelo:                            ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  while(saida){
+    printf("Digite o código: \n");
+    scanf("%s", cod);
+    for(i = 0; i < strlen(cod); i++){
+      if(!ehNum(cod[i])){
+        printf("Código inválido! Digite novamente");
+        break;
+      }
+    }
+  }                                                                        ///\n");               
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
@@ -87,14 +110,25 @@ void tela_remover_produto_venda(void){
 
 // Tela pesquisar venda
 void tela_pesquisar_vendas(void){
+  int saida = 1;
+  int i;
+  char cod[6];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Pesquisar Venda - - - -                      ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código:                                               ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  while(saida){
+    printf("Digite o código: \n");
+    scanf("%s", cod);
+    for(i = 0; i < strlen(cod); i++){
+      if(!ehNum(cod[i])){
+        printf("Código inválido! Digite novamente");
+        break;
+      }
+    }
+  }                                                                        ///\n");               
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
@@ -103,14 +137,25 @@ void tela_pesquisar_vendas(void){
 
 // Tela deletar venda
 void tela_deletar_vendas(void){
+  int saida = 1;
+  int i;
+  char cod[6];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Venda - - - -                        ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código:                                               ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  while(saida){
+    printf("Digite o código: \n");
+    scanf("%s", cod);
+    for(i = 0; i < strlen(cod); i++){
+      if(!ehNum(cod[i])){
+        printf("Código inválido! Digite novamente");
+        break;
+      }
+    }
+  }                                                                        ///\n");               
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();

@@ -1,5 +1,6 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
+#include"util.h"
 
 // Módulo relatórios
 // Tela menu relatorios

@@ -1,5 +1,6 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
+#include"util.h"
 
 // Módulo produtos
 // Tela menu produtos
@@ -28,18 +29,39 @@ int tela_menu_produtos(void){
 
 // Tela cadastrar produto
 void tela_cadastrar_produtos(void){
+  int saida = 1;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Cadastrar Produto - - - -                    ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Marca:                                                         ///\n");
-  printf("///          Modelo:                                                        ///\n");
-  printf("///          Preço:                                                         ///\n");
-  printf("///          Estoque:                                                       ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
+
+  char marca[20];
+  char modelo[20];
+  float preco;
+  int estoque;
+  while(saida){
+    while(saida){
+      printf("Marca: \n");
+      scanf("%s", marca);
+      if(!validaNome(marca)){
+        printf("Marca inválida! Digite novamente");
+      } else {
+        saida = 0;
+      }
+    }
+    printf("Modelo: \n");
+    scanf("%s", modelo);
+    
+    printf("Preço: \n");
+    scanf("%f", preco);
+
+    printf("Estoque: \n");
+    scanf("%d", estoque);
+
+    printf("\n");
+  }
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }

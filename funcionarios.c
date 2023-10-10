@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include"cabecalhos.h"
+#include"util.h"
 
 // Módulo funcionários
 // Tela menu funcionários
@@ -28,18 +29,63 @@ int tela_menu_funcionarios(void){
 
 // Tela cadastrar funcionário
 void tela_cadastrar_funcionarios(void){
+  int saida = 1;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                  - - - - Cadastrar Funcionário - - - -                  ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Nome:                                                          ///\n");
-  printf("///          CPF:                                                           ///\n");
-  printf("///          Telefone:                                                      ///\n");
-  printf("///          E-mail:                                                        ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("\n");
+  char nome[60];
+  char cpf[12];
+  char tel[12];
+  char email[50];
+  while(saida){
+    while(saida){
+      printf("Nome: \n");
+      scanf("%s", nome);
+      if(!validaNome(nome)){
+        printf("Nome inválido! Digite novamente");
+      } else {
+        saida = 0;
+      }
+    }
+
+    saida = 1;
+    while(saida){
+      printf("CPF:(Só números) \n");
+      scanf("%s", cpf);
+      if(!validaCPF(cpf)){
+        printf("CPF inválido! Digite novamente");
+      } else {
+        saida = 0;
+      }
+    }
+
+    saida = 1;
+    while(saida){  
+      printf("Telefone:(Só números) \n");
+      scanf("%s", tel);
+      if(!validaTel(tel)){
+        printf("Telefone inválido! Digite novamente");
+      } else {
+        saida = 0;
+      }
+    }
+
+    saida = 1;
+    while(saida){
+      printf("E-mail: \n");
+      scanf("%s", email);
+      if(!validaEmail(email)){
+        printf("Email inválido! Digite novamente");
+      } else {
+        saida = 0;
+      }
+    }
+    printf("\n");
+  }
+
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }
