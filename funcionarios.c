@@ -36,10 +36,10 @@ void tela_cadastrar_funcionarios(void){
   printf("///                  - - - - Cadastrar Funcionário - - - -                  ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  char nome[60];
+  char nome[61];
   char cpf[12];
   char tel[12];
-  char email[50];
+  char email[51];
   while(saida){
     while(saida){
       printf("Nome: \n");

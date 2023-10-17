@@ -2,8 +2,15 @@
 #include <string.h>
 #include"cabecalhos.h"
 #include"util.h"
+#include"funcionarios.h"
+#include"produtos.h"
+#include"clientes.h"
+#include"vendas.h"
 
 // Módulo vendas
+
+Produto produtos[100];
+
 // Tela vendas
 int tela_menu_vendas(void){
   int op;
@@ -32,7 +39,6 @@ int tela_menu_vendas(void){
 // Tela cadastrar vendas
 int tela_menu_cadastrar_vendas(void){
   int op;
-  int saida = 1;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -144,6 +150,34 @@ void tela_deletar_vendas(void){
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Venda - - - -                        ///\n");
+  printf("///                                                                         ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  while(saida){
+    printf("Digite o código: \n");
+    scanf("%s", cod);
+    for(i = 0; i < strlen(cod); i++){
+      if(!ehNum(cod[i])){
+        printf("Código inválido! Digite novamente");
+        break;
+      }
+    }
+  }                                                                        ///\n");               
+  printf("\n");
+  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+  getchar();
+}
+
+void tela_cadastrar_vendas(void){
+  int saida = 1;
+  int i;
+  char cod[6];
+  Funcionario funcionario;
+  Cliente cliente;
+  Venda venda;
+  cabecalho_secundario();
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///                    - - - - Finalizar Venda - - - -                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   while(saida){

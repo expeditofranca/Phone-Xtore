@@ -37,8 +37,8 @@ void tela_cadastrar_produtos(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  char marca[20];
-  char modelo[20];
+  char marca[21];
+  char modelo[21];
   float preco;
   int estoque;
   while(saida){

@@ -6,3 +6,12 @@ void tela_remover_produto_venda(void);
 
 void tela_pesquisar_vendas(void);
 void tela_deletar_vendas(void);
+
+typedef struct venda Venda;
+
+struct venda {
+  char codigo[6];
+  Cliente cliente;
+  Produto produtos[100];
+  Funcionario funcionario;
+};
