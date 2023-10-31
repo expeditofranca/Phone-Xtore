@@ -14,4 +14,5 @@ struct venda {
   Cliente cliente;
   Produto produtos[100];
   Funcionario funcionario;
+  char status[2];
 };

@@ -46,7 +46,6 @@ int validaEmail(char* mail){
                 return 0;
             }
             for(j = i + 1; j < strlen(mail); j++) {
-                printf("a");
                 if(!ehLetra(mail[j])) {
                     if(mail[j] == '.') {
                         pontos++;

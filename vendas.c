@@ -1,5 +1,6 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
-#include <string.h>
+#include<stdlib.h> // importa funções que podem ser úteis ao projeto
+#include<string.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
 #include"util.h"
 #include"funcionarios.h"

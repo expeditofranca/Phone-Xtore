@@ -11,4 +11,5 @@ struct cliente {
   char cpf[12];  
   char tel[12];  
   char email[51];  
+  char status[2];
 };

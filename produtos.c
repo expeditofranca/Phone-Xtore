@@ -1,6 +1,9 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include<stdlib.h> // importa funções que podem ser úteis ao projeto
+#include<string.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
 #include"util.h"
+#include"produtos.h"
 
 // Módulo produtos
 // Tela menu produtos
@@ -29,7 +32,11 @@ int tela_menu_produtos(void){
 
 // Tela cadastrar produto
 void tela_cadastrar_produtos(void){
-  int saida = 1;
+  FILE* fp;
+  Produto* produto;
+  fp = fopen("produtos.dat", "ab");
+  produto = (Produto*) malloc(sizeof(Produto));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -37,31 +44,45 @@ void tela_cadastrar_produtos(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
+  // char codigo[7];
   char marca[21];
   char modelo[21];
-  float preco;
-  int estoque;
-  while(saida){
-    while(saida){
-      printf("Marca: \n");
-      scanf("%s", marca);
-      if(!validaNome(marca)){
-        printf("Marca inválida! Digite novamente");
-      } else {
-        saida = 0;
-      }
-    }
-    printf("Modelo: \n");
-    scanf("%s", modelo);
-    
-    printf("Preço: \n");
-    scanf("%f", preco);
+  char preco[11];
+  char estoque[7];
 
-    printf("Estoque: \n");
-    scanf("%d", estoque);
-
-    printf("\n");
+  printf("Marca: \n");
+  scanf("%s", marca);
+  while(!validaNome(marca)){
+    printf("Marca inválida! Digite novamente:\n");
+    scanf("%s", marca);
   }
+  strcpy(produto->marca, marca);
+
+  printf("Modelo: \n");
+  scanf("%s", modelo);
+  // while(!validaNome(nome)){
+  //   printf("Modelo inválido! Digite novamente:\n");
+  //   scanf("%s", modelo);
+  // }
+  strcpy(produto->modelo, modelo);
+    
+  printf("Preço: \n");
+  scanf("%s", preco);
+  // while(!ehNum(preco)){
+  //   printf("Nome inválido! Digite novamente:\n");
+  //   scanf("%s", nome);
+  // }
+  strcpy(produto->preco, preco);
+
+  printf("Estoque: \n");
+  scanf("%s", estoque);
+  // while(!validaNome(nome)){
+  //   printf("Nome inválido! Digite novamente:\n");
+  //   scanf("%s", nome);
+  // }
+  strcpy(produto->estoque, estoque);
+
+  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }

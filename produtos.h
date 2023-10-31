@@ -7,9 +7,9 @@ void tela_deletar_produtos(void);
 typedef struct produto Produto;
 
 struct produto {
-  int codigo;
+  // char codigo[7];
   char marca[21];  
   char modelo[21];  
-  float preco;  
-  int estoque;  
+  char preco[11];  
+  char estoque[7];  
 };

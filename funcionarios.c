@@ -1,6 +1,9 @@
-#include<stdio.h>
+#include<stdio.h> // importa funções que podem ser úteis ao projeto
+#include<stdlib.h> // importa funções que podem ser úteis ao projeto
+#include<string.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
 #include"util.h"
+#include"funcionarios.h"
 
 // Módulo funcionários
 // Tela menu funcionários
@@ -29,7 +32,11 @@ int tela_menu_funcionarios(void){
 
 // Tela cadastrar funcionário
 void tela_cadastrar_funcionarios(void){
-  int saida = 1;
+  FILE* fp;
+  Funcionario* funcionario;
+  fp = fopen("funcionarios.dat", "ab");
+  funcionario = (Funcionario*) malloc(sizeof(Funcionario));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -40,52 +47,46 @@ void tela_cadastrar_funcionarios(void){
   char cpf[12];
   char tel[12];
   char email[51];
-  while(saida){
-    while(saida){
-      printf("Nome: \n");
-      scanf("%s", nome);
-      if(!validaNome(nome)){
-        printf("Nome inválido! Digite novamente");
-      } else {
-        saida = 0;
-      }
-    }
 
-    saida = 1;
-    while(saida){
-      printf("CPF:(Só números) \n");
-      scanf("%s", cpf);
-      if(!validaCPF(cpf)){
-        printf("CPF inválido! Digite novamente");
-      } else {
-        saida = 0;
-      }
-    }
-
-    saida = 1;
-    while(saida){  
-      printf("Telefone:(Só números) \n");
-      scanf("%s", tel);
-      if(!validaTel(tel)){
-        printf("Telefone inválido! Digite novamente");
-      } else {
-        saida = 0;
-      }
-    }
-
-    saida = 1;
-    while(saida){
-      printf("E-mail: \n");
-      scanf("%s", email);
-      if(!validaEmail(email)){
-        printf("Email inválido! Digite novamente");
-      } else {
-        saida = 0;
-      }
-    }
-    printf("\n");
+  printf("Nome: \n");
+  scanf("%s", nome);
+  while(!validaNome(nome)){
+    printf("Nome inválido! Digite novamente:\n");
+    scanf("%s", nome);
   }
+  strcpy(funcionario->nome, nome);
 
+  printf("CPF:(Só números) \n");
+  scanf("%s", cpf);
+  while(!validaCPF(cpf)){
+    printf("CPF inválido! Digite novamente:\n");
+    scanf("%s", cpf);
+  }
+  strcpy(funcionario->cpf, cpf);
+
+  printf("Telefone:(Só números) \n");
+  scanf("%s", tel);
+  while(!validaTel(tel)){  
+    printf("Telefone inválido! Digite novamente:\n");
+    scanf("%s", tel);
+  }
+  strcpy(funcionario->tel, tel);
+
+  printf("E-mail: \n");
+  scanf("%s", email);
+  while(!validaEmail(email)){
+    printf("Email inválido! Digite novamente:\n");
+    scanf("%s", email);
+  }
+  strcpy(funcionario->email, email);
+
+  strcpy(funcionario->status, "1\n");
+
+  fwrite(funcionario, sizeof(Funcionario), 1, fp);
+  fclose(fp);
+  free(funcionario);
+
+  printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }
