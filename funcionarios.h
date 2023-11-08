@@ -11,5 +11,6 @@ struct funcionario {
   char cpf[12];  
   char tel[12];  
   char email[51]; 
-  char status[52]; 
+  char status[2];
+  char id; 
 };

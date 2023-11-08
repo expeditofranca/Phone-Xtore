@@ -1,6 +1,10 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
 #include"util.h"
+#include"clientes.h"
+#include"funcionarios.h"
+#include"produtos.h"
+#include"vendas.h"
 
 // Módulo relatórios
 // Tela menu relatorios
@@ -49,12 +53,24 @@ int tela_relatorios_clientes(void){
 
 // Tela relatório geral de clientes
 void tela_relatorio_geral_clientes(void){
+  FILE *fp;
+  Cliente* cliente;
+  fp = fopen("clientes.dat", "rb");
+  cliente = (Cliente*) malloc(sizeof(Cliente));
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///               - - - - Relatório Geral de Clientes - - - -               ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  while(fread(cliente, sizeof(Cliente), 1, fp)){
+    printf("Nome: %s\n", cliente->nome);
+    printf("CPF: %s\n", cliente->cpf);
+    printf("Telefone: %s\n", cliente->tel);
+    printf("E-mail: %s\n", cliente->email);
+  }
+
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();

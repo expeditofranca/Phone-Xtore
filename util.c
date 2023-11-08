@@ -5,8 +5,16 @@
 // Códigos retirados e/ou inspirados em https://github.com/flgorgonio/linguasolta/blob/main/util.c
 
 //Verifica se o caractere é um número
-int ehNum(char a){
-    if (a >= '0' && a <= '9') {
+int ehNum(char* num){
+    int a = 0;
+    int i;
+
+    for(i = 0; i < strlen(num); i++){
+        if (num[i] >= '0' && num[i] <= '9') {
+            a++;
+        }
+    }
+    if(a == strlen(num)){
         return 1;
     } else {
         return 0;
@@ -71,7 +79,7 @@ int validaTel(char* tel){
     }
 
     for(i = 0; i < strlen(tel); i++){
-        if(!ehNum(tel[i])){
+        if(!ehNum(&tel[i])){
             return 0;
         }
     }
@@ -89,7 +97,7 @@ int validaCPF(char* cpf){
     //Verifica se o cpf só tem números
     int i;
     for(i = 0; i < 11; i++){
-        if(!ehNum(cpf[i])){
+        if(!ehNum(&cpf[i])){
             return 0;
         }
     }

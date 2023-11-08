@@ -65,20 +65,23 @@ int tela_menu_cadastrar_vendas(void){
 void tela_adicionar_produto_venda(void){
   int saida = 1;
   int i;
-  char cod[6];
+  // char cod[7];
+  char id;
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Adicionar Produto - - - -                    ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  printf("Digite o código: \n");
+  scanf("%s", cod);
   while(saida){
-    printf("Digite o código: \n");
-    scanf("%s", cod);
     for(i = 0; i < strlen(cod); i++){
       if(!ehNum(cod[i])){
         printf("Código inválido! Digite novamente");
-        break;
+        scanf("%s", cod)
+        saída = 1;
       }
     }
   }
@@ -92,20 +95,21 @@ void tela_adicionar_produto_venda(void){
 void tela_remover_produto_venda(void){
   int saida = 1;
   int i;
-  char cod[6];
+  char cod[7];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Remover Produto - - - -                      ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Digite o código: \n");
+  scanf("%s", cod);
   while(saida){
-    printf("Digite o código: \n");
-    scanf("%s", cod);
     for(i = 0; i < strlen(cod); i++){
       if(!ehNum(cod[i])){
         printf("Código inválido! Digite novamente");
-        break;
+        scanf("%s", cod)
+        saída = 1;
       }
     }
   }                                                                        ///\n");               
@@ -119,20 +123,21 @@ void tela_remover_produto_venda(void){
 void tela_pesquisar_vendas(void){
   int saida = 1;
   int i;
-  char cod[6];
+  char cod[7];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Pesquisar Venda - - - -                      ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Digite o código: \n");
+  scanf("%s", cod);
   while(saida){
-    printf("Digite o código: \n");
-    scanf("%s", cod);
     for(i = 0; i < strlen(cod); i++){
       if(!ehNum(cod[i])){
         printf("Código inválido! Digite novamente");
-        break;
+        scanf("%s", cod)
+        saída = 1;
       }
     }
   }                                                                        ///\n");               
@@ -146,20 +151,21 @@ void tela_pesquisar_vendas(void){
 void tela_deletar_vendas(void){
   int saida = 1;
   int i;
-  char cod[6];
+  char cod[7];
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Venda - - - -                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Digite o código: \n");
+  scanf("%s", cod);
   while(saida){
-    printf("Digite o código: \n");
-    scanf("%s", cod);
     for(i = 0; i < strlen(cod); i++){
       if(!ehNum(cod[i])){
         printf("Código inválido! Digite novamente");
-        break;
+        scanf("%s", cod)
+        saída = 1;
       }
     }
   }                                                                        ///\n");               
@@ -171,23 +177,25 @@ void tela_deletar_vendas(void){
 void tela_cadastrar_vendas(void){
   int saida = 1;
   int i;
-  char cod[6];
+  // char cod[7];
   Funcionario funcionario;
   Cliente cliente;
   Venda venda;
+  int id,
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Finalizar Venda - - - -                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Digite o código: \n");
+  scanf("%s", id);
   while(saida){
-    printf("Digite o código: \n");
-    scanf("%s", cod);
-    for(i = 0; i < strlen(cod); i++){
-      if(!ehNum(cod[i])){
+    for(i = 0; i < strlen(id); i++){
+      if(!ehNum(&id[i])){
         printf("Código inválido! Digite novamente");
-        break;
+        scanf("%s", id)
+        saída = 1;
       }
     }
   }                                                                        ///\n");               

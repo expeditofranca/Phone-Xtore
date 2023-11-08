@@ -35,6 +35,11 @@ void tela_cadastrar_clientes(void){
   FILE* fp;
   Cliente* cliente;
   fp = fopen("clientes.dat", "ab");
+  
+  fseek(fp, -sizeof(Cliente), SEEK_END);
+  fread(&cliente, sizeof(Cliente), 1, fp);
+  strcpy(cliente->id, id);
+
   cliente = (Cliente*) malloc(sizeof(Cliente));
 
   cabecalho_secundario();
@@ -44,6 +49,7 @@ void tela_cadastrar_clientes(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
+  int id;
   char nome[61];
   char cpf[12];
   char tel[12];
@@ -81,7 +87,8 @@ void tela_cadastrar_clientes(void){
   }
   strcpy(cliente->email, email);
 
-  strcpy(cliente->status, "1\n");
+  strcpy(cliente->status, "1");
+
 
   fwrite(cliente, sizeof(Cliente), 1, fp);
   fclose(fp);

@@ -43,10 +43,12 @@ void tela_cadastrar_funcionarios(void){
   printf("///                  - - - - Cadastrar Funcionário - - - -                  ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  
   char nome[61];
   char cpf[12];
   char tel[12];
   char email[51];
+  char id;
 
   printf("Nome: \n");
   scanf("%s", nome);
@@ -80,7 +82,8 @@ void tela_cadastrar_funcionarios(void){
   }
   strcpy(funcionario->email, email);
 
-  strcpy(funcionario->status, "1\n");
+  strcpy(funcionario->status, "1");
+  strcpy(funcionario->id, id);
 
   fwrite(funcionario, sizeof(Funcionario), 1, fp);
   fclose(fp);

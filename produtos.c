@@ -76,10 +76,10 @@ void tela_cadastrar_produtos(void){
 
   printf("Estoque: \n");
   scanf("%s", estoque);
-  // while(!validaNome(nome)){
-  //   printf("Nome inválido! Digite novamente:\n");
-  //   scanf("%s", nome);
-  // }
+  while(!ehNum(estoue)){
+    printf("Nome inválido! Digite novamente:\n");
+    scanf("%s", estoque);
+  }
   strcpy(produto->estoque, estoque);
 
   printf("\n");

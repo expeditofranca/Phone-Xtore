@@ -10,9 +10,10 @@ void tela_deletar_vendas(void);
 typedef struct venda Venda;
 
 struct venda {
-  char codigo[6];
+  // char codigo[7];
   Cliente cliente;
-  Produto produtos[100];
+  Produto produtos[101];
   Funcionario funcionario;
   char status[2];
+  char id;
 };
