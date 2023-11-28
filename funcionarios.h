@@ -13,4 +13,5 @@ struct funcionario {
   char email[51]; 
   char status[2];
   char id; 
+  Funcionario* prox;
 };

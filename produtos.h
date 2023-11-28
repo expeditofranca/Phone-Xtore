@@ -12,5 +12,6 @@ struct produto {
   char modelo[21];  
   char preco[11];  
   char estoque[7];
-  char status[2]; 
+  char status[2];
+  Produto* prox;
 };

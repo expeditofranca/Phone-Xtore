@@ -16,4 +16,5 @@ struct venda {
   Funcionario funcionario;
   char status[2];
   char id;
+  Venda* prox;
 };
