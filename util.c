@@ -32,7 +32,6 @@ int ehLetra(char a){
 }
 
 int validaPreco(char* preco){
-    printf("a");
     int i;
     for(i = 0; i < strlen(preco); i++){
         if(ehLetra(preco[i]) || (!ehNum(&preco[i]) && (preco[i] != ',' && preco[i] != '.'))){
