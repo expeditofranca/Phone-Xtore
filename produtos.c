@@ -63,6 +63,7 @@ void tela_cadastrar_produtos(void){
   printf("Preço: ");
   scanf("%[0-9,.]", produto->preco);
   getchar();
+  printf("%s", produto->preco);
   while(validaPreco(produto->preco)){
     printf("b");
     printf("Preço inválido! Digite novamente:");
