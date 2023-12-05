@@ -1,6 +1,5 @@
 #include<stdio.h> // importa funções que podem ser úteis ao projeto
 #include<stdlib.h> // importa funções que podem ser úteis ao projeto
-#include<stdbool.h> // importa funções que podem ser úteis ao projeto
 #include<string.h> // importa funções que podem ser úteis ao projeto
 #include"cabecalhos.h"
 #include"util.h"
@@ -95,6 +94,10 @@ void tela_cadastrar_clientes(void){
     printf("Arquivo não encontrado!");
   }
 
+  if(fread(cliente, sizeof(Cliente), 1, fp) == False){
+    cliente->id = 1;
+  }
+
   fwrite(cliente, sizeof(Cliente), 1, fp);
   fclose(fp);
   free(cliente);
@@ -132,13 +135,14 @@ void tela_pesquisar_clientes(void){
     printf("Arquivo não encontrado!");
   }
   while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if ((strcmp(cliente->cpf, cpf) == 0) && (cliente->status == 1)){
+    if ((strcmp(cliente->cpf, cpf) == False) && (cliente->status == True)){
       fclose(fp);
       printf("CPF: %s\n", cliente->cpf);
       printf("Nome: %s\n", cliente->nome);
       printf("E-mail: %s\n", cliente->email);
       printf("Telefone: %s\n", cliente->tel);
       printf("Status: %d\n", cliente->status);
+      printf("Id: %d\n", cliente->id);
     }
   }
 
@@ -171,6 +175,8 @@ void tela_deletar_clientes(void){
   FILE* fp;
   Cliente* cliente;
   cliente = (Cliente*) malloc(sizeof(cliente));
+
+  Cliente* clienteLido;
   fp = fopen("clientes.dat", "r+b");
 
   cabecalho_secundario();
@@ -193,16 +199,26 @@ void tela_deletar_clientes(void){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if ((strcmp(cliente->cpf, cpf) == 0) && (cliente->status == True)){
+  while(fread(clienteLido, sizeof(Cliente), 1, fp)){
+    if ((strcmp(clienteLido->cpf, cpf) == 0) && (clienteLido->status == True)){
+      strcpy(clienteLido->nome, cliente->nome);
+      strcpy(clienteLido->cpf, cliente->cpf);
+      strcpy(clienteLido->tel, cliente->tel);
+      strcpy(clienteLido->email, cliente->email);
       cliente->status = False;
-      fseek(fp, -1*sizeof(Cliente), SEEK_CUR);
-      fwrite(cliente, sizeof(Cliente), 1, fp);
-		  free(cliente);
+      break;
     }
   }
+
+  fseek(fp, -1*sizeof(Cliente), SEEK_CUR);
+  fwrite(cliente, sizeof(Cliente), 1, fp);
+  free(cliente);
   free(cpf);
   fclose(fp);
+
+  printf("\n");
+  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+  getchar();
 }
 // Fim tela deletar cliente
 // Fim módulo clientes

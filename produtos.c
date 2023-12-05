@@ -5,6 +5,9 @@
 #include"util.h"
 #include"produtos.h"
 
+#define True 1
+#define False 0
+
 // Módulo produtos
 // Tela menu produtos
 int tela_menu_produtos(void){
@@ -32,10 +35,10 @@ int tela_menu_produtos(void){
 
 // Tela cadastrar produto
 void tela_cadastrar_produtos(void){
-  FILE* fp;
-  Produto* produto;
-  fp = fopen("produtos.dat", "ab");
+  Produto *produto;
   produto = (Produto*) malloc(sizeof(Produto));
+  FILE* fp;
+  fp = fopen("produtos.dat", "ab");
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -44,43 +47,49 @@ void tela_cadastrar_produtos(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
-  // char codigo[7];
-  char marca[21];
-  char modelo[21];
-  char preco[11];
-  char estoque[7];
-
-  printf("Marca: \n");
-  scanf("%s", marca);
-  while(!validaNome(marca)){
-    printf("Marca inválida! Digite novamente:\n");
-    scanf("%s", marca);
+  printf("Marca: ");
+  scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", produto->marca);
+  getchar();
+  while(!validaNome(produto->marca)){
+    printf("Marca inválida! Digite novamente:");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", produto->marca);
+    getchar();
   }
-  strcpy(produto->marca, marca);
 
-  printf("Modelo: \n");
-  scanf("%s", modelo);
-  // while(!validaNome(nome)){
-  //   printf("Modelo inválido! Digite novamente:\n");
-  //   scanf("%s", modelo);
-  // }
-  strcpy(produto->modelo, modelo);
+  printf("Modelo: ");
+  scanf("%[0-9A-Za-z-]", produto->modelo);
+  getchar();
     
-  printf("Preço: \n");
-  scanf("%s", preco);
-  // while(!ehNum(preco)){
-  //   printf("Nome inválido! Digite novamente:\n");
-  //   scanf("%s", nome);
-  // }
-  strcpy(produto->preco, preco);
-
-  printf("Estoque: \n");
-  scanf("%s", estoque);
-  while(!ehNum(estoue)){
-    printf("Nome inválido! Digite novamente:\n");
-    scanf("%s", estoque);
+  printf("Preço: ");
+  scanf("%[0-9,.]", produto->preco);
+  getchar();
+  while(!validaPreco(produto->preco)){
+    printf("Preço inválido! Digite novamente:");
+    scanf("%[0-9,.]", produto->preco);
+    getchar();
   }
-  strcpy(produto->estoque, estoque);
+
+  printf("Estoque: ");
+  scanf("%[^\n]", produto->estoque);
+  getchar();
+  while(!ehNum(produto->estoque)){
+    printf("Estoque inválido! Digite novamente:");
+    scanf("%[^\n]", produto->estoque);
+    getchar();
+  }
+  produto->status = True;
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  if(fread(produto, sizeof(Produto), 1, fp) == False){
+    produto->codigo = 1;
+  }
+
+  fwrite(produto, sizeof(Produto), 1, fp);
+  fclose(fp);
+  free(produto);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

@@ -14,6 +14,7 @@ int ehNum(char* num){
             a++;
         }
     }
+
     if(a == strlen(num)){
         return 1;
     } else {
@@ -28,6 +29,17 @@ int ehLetra(char a){
     } else {
         return 0;
     }
+}
+
+int validaPreco(char* preco){
+    int i;
+    for(i = 0; i < strlen(preco); i++){
+        printf("%s", preco[i]);
+        if(ehLetra(preco[i]) || (!ehNum(&preco[i]) && (preco[i] != ',' && preco[i] != '.'))){
+            return 0;
+        }
+    }
+    return 1;
 }
 
 //Verifica se o parâmetro é um nome válido
