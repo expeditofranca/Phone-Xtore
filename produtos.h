@@ -6,7 +6,7 @@ struct produto {
   char preco[11];  
   char estoque[7];
   int status;
-  int codigo;
+  char codigo[7];
 };
 
 int tela_menu_produtos(void);

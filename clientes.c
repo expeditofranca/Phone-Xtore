@@ -113,9 +113,9 @@ void tela_pesquisar_clientes(void){
   char* cpf;
   cpf = (char*) malloc(12*sizeof(char));
   FILE* fp;
+  fp = fopen("clientes.dat", "rb");
   Cliente* cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
-  fp = fopen("clientes.dat", "rb");
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -123,17 +123,18 @@ void tela_pesquisar_clientes(void){
   printf("///                    - - - - Pesquisar Cliente - - - -                    ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("CPF:(só números)\n");
+  printf("CPF:(Só números)\n");
   scanf("%[0-9]", cpf);
   getchar();
   while(!validaCPF(cpf)){
-    printf("CPF inválido! Digite novamente:\n");
-    scanf("%s", cpf);
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%[0-9]", cpf);
   }
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
+
   while(fread(cliente, sizeof(Cliente), 1, fp)){
     if ((strcmp(cliente->cpf, cpf) == False) && (cliente->status == True)){
       fclose(fp);
@@ -145,6 +146,8 @@ void tela_pesquisar_clientes(void){
       printf("Id: %d\n", cliente->id);
     }
   }
+  free(cliente);
+  free(cpf);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

@@ -109,9 +109,9 @@ void tela_pesquisar_funcionarios(void){
   char* cpf;
   cpf = (char*) malloc(12*sizeof(char));
   FILE* fp;
+  fp = fopen("funcionarios.dat", "rb");
   Funcionario* funcionario;
   funcionario = (Funcionario*) malloc(sizeof(Funcionario));
-  fp = fopen("funcionarios.dat", "rb");
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");

@@ -8,6 +8,8 @@
 #define True 1
 #define False 0
 
+typedef struct produto Produtos;
+
 // Módulo produtos
 // Tela menu produtos
 int tela_menu_produtos(void){
@@ -63,8 +65,8 @@ void tela_cadastrar_produtos(void){
   printf("Preço: ");
   scanf("%[0-9,.]", produto->preco);
   getchar();
-  while(validaPreco(produto->preco)){
-    printf("Preço inválido! Digite novamente:");
+  while(!validaPreco(produto->preco)){
+    printf("Preço inválido! Digite novamente: ");
     scanf("%[0-9,.]", produto->preco);
     getchar();
   }
@@ -84,7 +86,7 @@ void tela_cadastrar_produtos(void){
   }
 
   if(fread(produto, sizeof(Produto), 1, fp) == False){
-    produto->codigo = 1;
+    strcpy(produto->codigo, "12");
   }
 
   fwrite(produto, sizeof(Produto), 1, fp);
@@ -99,14 +101,47 @@ void tela_cadastrar_produtos(void){
 
 // Tela pesquisar produto
 void tela_pesquisar_produtos(void){
+  char* codigo;
+  codigo = (char*) malloc(7*sizeof(char));
+  FILE* fp;
+  fp = fopen("produtos.dat", "rb");
+  Produto* produto;
+  produto = (Produto*) malloc(sizeof(Produto));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Pesquisar Produtos - - - -                   ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código/ a marca/ o modelo:                            ///\n");
+  printf("///          Digite o código:                                               ///\n");
   printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Código:(Só números)\n");
+  scanf("%[0-9]", codigo);
+  getchar();
+  while(!ehNum(codigo)){
+    printf("Código inválido. Digite novamente: ");
+    scanf("%[0-9]", codigo);
+  }
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  while(fread(produto, sizeof(Produto), 1, fp)){
+    if((strcmp(produto->codigo, codigo) == False) && (produto->status == True)){
+      fclose(fp);
+      printf("Marca: %\n", produto->marca);
+      printf("Modelo: %\n", produto->modelo);
+      printf("Preço: %\n", produto->preco);
+      printf("Estoque: %\n", produto->estoque);
+      printf("Status: %\n", produto->status);
+      printf("Código: %\n", produto->codigo);
+    }
+  }
+  free(produto);
+  free(codigo);
+  
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();

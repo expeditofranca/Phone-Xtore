@@ -101,6 +101,16 @@ int main(void) {
             op3 = tela_relatorios_produtos();
           }
         } else if (op2 == 3) {
+          int op3 = tela_relatorios_funcionarios();
+          while (op3 != 0) {
+            if (op3 == 1) {
+              tela_relatorio_geral_funcionarios();
+            } else {
+              msg_escolha_invalida();
+            }
+            op3 = tela_relatorios_funcionarios();
+          }
+        } else if (op2 == 4) {
           int op3 = tela_relatorios_vendas();
           while (op3 != 0) {
             if (op3 == 1) {

@@ -34,8 +34,11 @@ int ehLetra(char a){
 int validaPreco(char* preco){
     int i;
     for(i = 0; i < strlen(preco); i++){
-        if(ehLetra(preco[i]) || (!ehNum(&preco[i]) && (preco[i] != ',' && preco[i] != '.'))){
+        if(ehLetra(preco[i])){
             return 0;
+        }
+        if(preco[i] == ',' || preco[i] == '.'){
+            return 1;
         }
     }
     return 1;
