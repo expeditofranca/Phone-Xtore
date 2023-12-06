@@ -84,14 +84,14 @@ void tela_cadastrar_funcionarios(void){
     scanf("%[a-z0-9@.]", funcionario->email);
     getchar();
   }
-  funcionario->status = True;
+  strcpy(funcionario->status, "1");
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
 
   if(fread(funcionario, sizeof(Funcionario), 1, fp) == False){
-    funcionario->id = 1;
+    strcpy(funcionario->id, "1");
   }
 
   fwrite(funcionario, sizeof(Funcionario), 1, fp);
@@ -133,14 +133,14 @@ void tela_pesquisar_funcionarios(void){
     printf("Arquivo não encontrado!");
   }
   while(fread(funcionario, sizeof(Funcionario), 1, fp)){
-    if ((strcmp(funcionario->cpf, cpf) == False) && (funcionario->status == True)){
+    if ((strcmp(funcionario->cpf, cpf) == False) && (strcmp(funcionario->status, "1") == False)){
       fclose(fp);
       printf("CPF: %s\n", funcionario->cpf);
       printf("Nome: %s\n", funcionario->nome);
       printf("E-mail: %s\n", funcionario->email);
       printf("Telefone: %s\n", funcionario->tel);
-      printf("Status: %d\n", funcionario->status);
-      printf("Id: %d\n", funcionario->id);
+      printf("Status: %s\n", funcionario->status);
+      printf("Id: %s\n", funcionario->id);
     }
   }
   

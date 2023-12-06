@@ -75,6 +75,7 @@ void tela_relatorio_geral_clientes(void){
     printf("Status: %s\n", cliente->status);
     printf("Id: %s\n", cliente->id);
   }
+  free(cliente);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

@@ -88,14 +88,14 @@ void tela_cadastrar_clientes(void){
     scanf("%[a-z0-9@.]", cliente->email);
     getchar();
   }
-  cliente->status = True;
+  strcpy(cliente->status, "1");
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
 
   if(fread(cliente, sizeof(Cliente), 1, fp) == False){
-    cliente->id = 1;
+    strcpy(cliente->id, "1");
   }
 
   fwrite(cliente, sizeof(Cliente), 1, fp);
@@ -136,14 +136,14 @@ void tela_pesquisar_clientes(void){
   }
 
   while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if ((strcmp(cliente->cpf, cpf) == False) && (cliente->status == True)){
+    if ((strcmp(cliente->cpf, cpf) == False) && (strcmp(cliente->status, "1") == False)){
       fclose(fp);
       printf("CPF: %s\n", cliente->cpf);
       printf("Nome: %s\n", cliente->nome);
       printf("E-mail: %s\n", cliente->email);
       printf("Telefone: %s\n", cliente->tel);
-      printf("Status: %d\n", cliente->status);
-      printf("Id: %d\n", cliente->id);
+      printf("Status: %s\n", cliente->status);
+      printf("Id: %s\n", cliente->id);
     }
   }
   free(cliente);
@@ -203,12 +203,12 @@ void tela_deletar_clientes(void){
   }
 
   while(fread(clienteLido, sizeof(Cliente), 1, fp)){
-    if ((strcmp(clienteLido->cpf, cpf) == 0) && (clienteLido->status == True)){
+    if ((strcmp(clienteLido->cpf, cpf) == 0) && (strcmp(clienteLido->status, "1") == False)){
       strcpy(clienteLido->nome, cliente->nome);
       strcpy(clienteLido->cpf, cliente->cpf);
       strcpy(clienteLido->tel, cliente->tel);
       strcpy(clienteLido->email, cliente->email);
-      cliente->status = False;
+      strcpy(cliente->status, "0");
       break;
     }
   }

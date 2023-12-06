@@ -79,14 +79,14 @@ void tela_cadastrar_produtos(void){
     scanf("%[^\n]", produto->estoque);
     getchar();
   }
-  produto->status = True;
+  strcpy(produto->status, "1");
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
 
   if(fread(produto, sizeof(Produto), 1, fp) == False){
-    strcpy(produto->codigo, "12");
+    strcpy(produto->codigo, "1");
   }
 
   fwrite(produto, sizeof(Produto), 1, fp);
@@ -129,14 +129,14 @@ void tela_pesquisar_produtos(void){
   }
 
   while(fread(produto, sizeof(Produto), 1, fp)){
-    if((strcmp(produto->codigo, codigo) == False) && (produto->status == True)){
+    if((strcmp(produto->codigo, codigo) == False) && (strcmp(produto->status, "1") == False)){
       fclose(fp);
-      printf("Marca: %\n", produto->marca);
-      printf("Modelo: %\n", produto->modelo);
-      printf("Preço: %\n", produto->preco);
-      printf("Estoque: %\n", produto->estoque);
-      printf("Status: %\n", produto->status);
-      printf("Código: %\n", produto->codigo);
+      printf("Marca: %s\n", produto->marca);
+      printf("Modelo: %s\n", produto->modelo);
+      printf("Preço: %s\n", produto->preco);
+      printf("Estoque: %s\n", produto->estoque);
+      printf("Status: %s\n", produto->status);
+      printf("Código: %s\n", produto->codigo);
     }
   }
   free(produto);
