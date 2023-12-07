@@ -49,6 +49,7 @@ int validaNome(char* nome){
     int i;
     for(i = 0; i < strlen(nome); i++){
         if (!ehLetra(nome[i]) && nome[i] != ' ') {
+            printf("aaaaaa");
             return 0;
         }
     }

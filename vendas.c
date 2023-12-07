@@ -174,8 +174,8 @@ void tela_pesquisar_vendas(void){
       printf("Código do produto: %s\n", venda->codProd);
       printf("Data: %s\n", venda->data);
       printf("Valor: %s\n", venda->valor);
-      printf("Status: %s\n", venda->status);
       printf("Id: %s\n", venda->id);
+      printf("Status: %c\n", venda->status);
     }
   }
   free(venda);

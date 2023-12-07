@@ -137,15 +137,16 @@ void tela_pesquisar_clientes(void){
 
   while(fread(cliente, sizeof(Cliente), 1, fp)){
     if ((strcmp(cliente->cpf, cpf) == False) && (cliente->status == '1')){
-      fclose(fp);
       printf("CPF: %s\n", cliente->cpf);
       printf("Nome: %s\n", cliente->nome);
       printf("E-mail: %s\n", cliente->email);
       printf("Telefone: %s\n", cliente->tel);
-      printf("Status: %s\n", cliente->status);
       printf("Id: %s\n", cliente->id);
+      printf("Status: %c\n", cliente->status);
     }
   }
+
+  fclose(fp);
   free(cliente);
   free(cpf);
 
@@ -173,51 +174,47 @@ void tela_atualizar_clientes(void){
 
 // Tela deletar cliente
 void tela_deletar_clientes(void){
-  char *cpf;
+  char* cpf;
   cpf = (char*) malloc(12*sizeof(char));
   FILE* fp;
+  fp = fopen("clientes.dat", "rb");
+  FILE* f;
+  f = fopen("temp.dat", "ab");
   Cliente* cliente;
-  cliente = (Cliente*) malloc(sizeof(cliente));
-
-  Cliente* clienteLido;
-  fp = fopen("clientes.dat", "r+b");
+  cliente = (Cliente*) malloc(sizeof(Cliente));
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Cliente - - - -                      ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o CPF (só números):                                     ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("CPF:(só números)\n");
+  printf("CPF:(só números) ");
   scanf("%[0-9]", cpf);
   getchar();
   while(!validaCPF(cpf)){
-    printf("CPF inválido! Digite novamente:\n");
-    scanf("%s", cpf);
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%[0-9]", cpf);
   }
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(clienteLido, sizeof(Cliente), 1, fp)){
-    if ((strcmp(clienteLido->cpf, cpf) == False) && (clienteLido->status == '1')){
-      strcpy(clienteLido->nome, cliente->nome);
-      strcpy(clienteLido->cpf, cliente->cpf);
-      strcpy(clienteLido->tel, cliente->tel);
-      strcpy(clienteLido->email, cliente->email);
-      cliente->status = '0';
-      break;
+  while(fread(cliente, sizeof(Cliente), 1, fp)){
+    printf("AAAAAAAAAAAAAAAAAAAAAAAA");
+    if(strcmp(cliente->cpf, cpf) == True){
+      fwrite(cliente, sizeof(Cliente), 1, f);
     }
   }
 
-  fseek(fp, -1*sizeof(Cliente), SEEK_CUR);
-  fwrite(cliente, sizeof(Cliente), 1, fp);
   free(cliente);
   free(cpf);
   fclose(fp);
+  fclose(f);
+
+  remove("clientes.dat");
+  rename("temp.dat", "clientes.dat");
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

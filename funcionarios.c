@@ -139,8 +139,8 @@ void tela_pesquisar_funcionarios(void){
       printf("Nome: %s\n", funcionario->nome);
       printf("E-mail: %s\n", funcionario->email);
       printf("Telefone: %s\n", funcionario->tel);
-      printf("Status: %s\n", funcionario->status);
       printf("Id: %s\n", funcionario->id);
+      printf("Status: %c\n", funcionario->status);
     }
   }
   

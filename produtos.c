@@ -135,8 +135,8 @@ void tela_pesquisar_produtos(void){
       printf("Modelo: %s\n", produto->modelo);
       printf("Preço: %s\n", produto->preco);
       printf("Estoque: %s\n", produto->estoque);
-      printf("Status: %s\n", produto->status);
       printf("Código: %s\n", produto->codigo);
+      printf("Status: %c\n", produto->status);
     }
   }
   free(produto);

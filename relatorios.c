@@ -72,8 +72,8 @@ void tela_relatorio_geral_clientes(void){
     printf("CPF: %s\n", cliente->cpf);
     printf("Telefone: %s\n", cliente->tel);
     printf("E-mail: %s\n", cliente->email);
-    printf("Status: %s\n", cliente->status);
     printf("Id: %s\n", cliente->id);
+    printf("Status: %c\n", cliente->status);
   }
   free(cliente);
 
@@ -123,8 +123,8 @@ void tela_relatorio_geral_produtos(void){
     printf("Modelo: %s\n", produto->modelo);
     printf("Preço: %s\n", produto->preco);
     printf("Estoque: %s\n", produto->estoque);
-    printf("Status: %s\n", produto->status);
     printf("Id: %s\n", produto->codigo);
+    printf("Status: %c\n", produto->status);
   }
 
   printf("\n");
@@ -173,8 +173,8 @@ void tela_relatorio_geral_funcionarios(void){
     printf("CPF: %s\n", funcionario->cpf);
     printf("Telefone: %s\n", funcionario->tel);
     printf("E-mail: %s\n", funcionario->email);
-    printf("Status: %s\n", funcionario->status);
     printf("Id: %s\n", funcionario->id);
+    printf("Status: %c\n", funcionario->status);
   }
 
   printf("\n");
