@@ -5,8 +5,8 @@ struct funcionario {
   char cpf[12];  
   char tel[12];  
   char email[41]; 
-  char status[2];
-  char id[2]; 
+  char status;
+  char id[7]; 
 };
 
 int tela_menu_funcionarios(void);

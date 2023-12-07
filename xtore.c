@@ -129,21 +129,7 @@ int main(void) {
       int op2 = tela_menu_vendas();
       while (op2 != 0) {
         if (op2 == 1) {
-          int op3 = tela_menu_cadastrar_vendas();
-          while (op3 != 0) {
-            if (op3 == 1) {
-              tela_adicionar_produto_venda();
-            } else if (op3 == 2) {
-              tela_remover_produto_venda();
-            } else if (op3 == 3) {
-              printf("Pagamento realizado com sucesso!\n");
-            } else if (op3 == 4) {
-              printf("Venda cancelada com sucesso!\n");
-            } else {
-              msg_escolha_invalida();
-            }
-            op3 = tela_menu_cadastrar_vendas();
-          }
+          tela_cadastrar_vendas();
         } else if (op2 == 2) {
           tela_pesquisar_vendas();
         } else if (op2 == 3) {

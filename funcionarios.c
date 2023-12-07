@@ -37,7 +37,7 @@ int tela_menu_funcionarios(void){
 
 // Tela cadastrar funcionário
 void tela_cadastrar_funcionarios(void){
-  Funcionario* funcionario;
+  Funcionario *funcionario;
   funcionario = (Funcionario*) malloc(sizeof(Funcionario));
   FILE* fp;
   fp = fopen("funcionarios.dat", "ab");
@@ -84,7 +84,7 @@ void tela_cadastrar_funcionarios(void){
     scanf("%[a-z0-9@.]", funcionario->email);
     getchar();
   }
-  strcpy(funcionario->status, "1");
+  funcionario->status = '1';
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
@@ -133,7 +133,7 @@ void tela_pesquisar_funcionarios(void){
     printf("Arquivo não encontrado!");
   }
   while(fread(funcionario, sizeof(Funcionario), 1, fp)){
-    if ((strcmp(funcionario->cpf, cpf) == False) && (strcmp(funcionario->status, "1") == False)){
+    if ((strcmp(funcionario->cpf, cpf) == False) && (funcionario->status == '1')){
       fclose(fp);
       printf("CPF: %s\n", funcionario->cpf);
       printf("Nome: %s\n", funcionario->nome);

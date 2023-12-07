@@ -63,20 +63,20 @@ void tela_cadastrar_clientes(void){
   }
 
   printf("CPF:(Só números) ");
-  scanf("%[^\n]", cliente->cpf);
+  scanf("%[0-9]", cliente->cpf);
   getchar();
   while(!validaCPF(cliente->cpf)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[^\n]", cliente->cpf);
+    scanf("%[0-9]", cliente->cpf);
     getchar();
   }
 
   printf("Telefone:(Só números) ");
-  scanf("%[^\n]", cliente->tel);
+  scanf("%[0-9]", cliente->tel);
   getchar();
   while(!validaTel(cliente->tel)){  
     printf("Telefone inválido! Digite novamente: ");
-    scanf("%[^\n]", cliente->tel);
+    scanf("%[0-9]", cliente->tel);
     getchar();
   }
 
@@ -88,7 +88,7 @@ void tela_cadastrar_clientes(void){
     scanf("%[a-z0-9@.]", cliente->email);
     getchar();
   }
-  strcpy(cliente->status, "1");
+  cliente->status ='1';
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
@@ -136,7 +136,7 @@ void tela_pesquisar_clientes(void){
   }
 
   while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if ((strcmp(cliente->cpf, cpf) == False) && (strcmp(cliente->status, "1") == False)){
+    if ((strcmp(cliente->cpf, cpf) == False) && (cliente->status == '1')){
       fclose(fp);
       printf("CPF: %s\n", cliente->cpf);
       printf("Nome: %s\n", cliente->nome);
@@ -203,12 +203,12 @@ void tela_deletar_clientes(void){
   }
 
   while(fread(clienteLido, sizeof(Cliente), 1, fp)){
-    if ((strcmp(clienteLido->cpf, cpf) == 0) && (strcmp(clienteLido->status, "1") == False)){
+    if ((strcmp(clienteLido->cpf, cpf) == False) && (clienteLido->status == '1')){
       strcpy(clienteLido->nome, cliente->nome);
       strcpy(clienteLido->cpf, cliente->cpf);
       strcpy(clienteLido->tel, cliente->tel);
       strcpy(clienteLido->email, cliente->email);
-      strcpy(cliente->status, "0");
+      cliente->status = '0';
       break;
     }
   }

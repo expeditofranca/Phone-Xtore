@@ -79,7 +79,7 @@ void tela_cadastrar_produtos(void){
     scanf("%[^\n]", produto->estoque);
     getchar();
   }
-  strcpy(produto->status, "1");
+  produto->status = '1';
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
@@ -129,7 +129,7 @@ void tela_pesquisar_produtos(void){
   }
 
   while(fread(produto, sizeof(Produto), 1, fp)){
-    if((strcmp(produto->codigo, codigo) == False) && (strcmp(produto->status, "1") == False)){
+    if((strcmp(produto->codigo, codigo) == False) && (produto->status == '1')){
       fclose(fp);
       printf("Marca: %s\n", produto->marca);
       printf("Modelo: %s\n", produto->modelo);
