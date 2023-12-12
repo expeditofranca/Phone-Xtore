@@ -50,38 +50,38 @@ void tela_cadastrar_funcionarios(void){
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
   printf("Nome: ");
-  scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", funcionario->nome);
+  scanf("%s", funcionario->nome);
   getchar();
   while(!validaNome(funcionario->nome)){
     printf("Nome inválido! Digite novamente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", funcionario->nome);
+    scanf("%s", funcionario->nome);
     getchar();
   }
 
   printf("CPF:(Só números) ");
-  scanf("%[^\n]", funcionario->cpf);
+  scanf("%s", funcionario->cpf);
   getchar();
   while(!validaCPF(funcionario->cpf)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[^\n]", funcionario->cpf);
+    scanf("%s", funcionario->cpf);
     getchar();
   }
 
   printf("Telefone:(Só números) ");
-  scanf("%[^\n]", funcionario->tel);
+  scanf("%s", funcionario->tel);
   getchar();
   while(!validaTel(funcionario->tel)){  
     printf("Telefone inválido! Digite novamente: ");
-    scanf("%[^\n]", funcionario->tel);
+    scanf("%s", funcionario->tel);
     getchar();
   }
 
   printf("E-mail: ");
-  scanf("%[a-z0-9@.]", funcionario->email);
+  scanf("%s", funcionario->email);
   getchar();
   while(!validaEmail(funcionario->email)){
     printf("Email inválido! Digite novamente: ");
-    scanf("%[a-z0-9@.]", funcionario->email);
+    scanf("%s", funcionario->email);
     getchar();
   }
   funcionario->status = '1';
@@ -122,7 +122,7 @@ void tela_pesquisar_funcionarios(void){
   printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("CPF:(só números)\n");
-  scanf("%[0-9]", cpf);
+  scanf("%s", cpf);
   getchar();
   while(!validaCPF(cpf)){
     printf("CPF inválido! Digite novamente:\n");

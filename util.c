@@ -9,7 +9,7 @@ int ehNum(char* num){
     int a = 0;
     int i;
 
-    for(i = 0; i < strlen(num); i++){
+    for(i = 0; num[i] != '\0'; i++){
         if (num[i] >= '0' && num[i] <= '9') {
             a++;
         }
@@ -33,7 +33,7 @@ int ehLetra(char a){
 
 int validaPreco(char* preco){
     int i;
-    for(i = 0; i < strlen(preco); i++){
+    for(i = 0; preco[i] != '\0'; i++){
         if(ehLetra(preco[i])){
             return 0;
         }
@@ -47,9 +47,8 @@ int validaPreco(char* preco){
 //Verifica se o parâmetro é um nome válido
 int validaNome(char* nome){
     int i;
-    for(i = 0; i < strlen(nome); i++){
+    for(i = 0; nome[i] != '\0'; i++){
         if (!ehLetra(nome[i]) && nome[i] != ' ') {
-            printf("aaaaaa");
             return 0;
         }
     }
@@ -59,30 +58,29 @@ int validaNome(char* nome){
 //Verifica se o parâmetro é um email válido
 int validaEmail(char* mail){
     int arrobas = 0;
+    int pontos = 0;
     int i;
-    for(i = 0; i < strlen(mail); i++) {
+    for(i = 0; mail[i] != '\0'; i++) {
         if(mail[i] == '@') {
             int j;
-            int pontos = 0;
             arrobas++;
-            if (arrobas == 0 || arrobas > 1) {
-                return 0;
-            }
-            for(j = i + 1; j < strlen(mail); j++) {
+            for(j = i + 1; mail[j] != '\0'; j++) {
                 if(!ehLetra(mail[j])) {
-                    if(mail[j] == '.') {
+                    if(mail[j] == '.'){
                         pontos++;
-                        if(pontos == 0 || pontos > 2) {
-                            return 0;
-                        }
-                    } else {
-                        return 0;
                     }
                 }
             }
         }
     }
 
+    if(pontos == 0 || pontos > 3) {
+        return 0;
+    }
+
+    if (arrobas == 0 || arrobas > 1) {
+        return 0;
+    }
     return 1;
 }
 
@@ -93,7 +91,7 @@ int validaTel(char* tel){
         return 0;
     }
 
-    for(i = 0; i < strlen(tel); i++){
+    for(i = 0; tel[i] != '\0'; i++){
         if(!ehNum(&tel[i])){
             return 0;
         }

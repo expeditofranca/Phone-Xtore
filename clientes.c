@@ -54,38 +54,38 @@ void tela_cadastrar_clientes(void){
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
   printf("Nome: ");
-  scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", cliente->nome);
+  scanf("%s", cliente->nome);
   getchar();
   while(!validaNome(cliente->nome)){
     printf("Nome inválido! Digite novamente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", cliente->nome);
+    scanf("%s", cliente->nome);
     getchar();
   }
 
   printf("CPF:(Só números) ");
-  scanf("%[0-9]", cliente->cpf);
+  scanf("%s", cliente->cpf);
   getchar();
   while(!validaCPF(cliente->cpf)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[0-9]", cliente->cpf);
+    scanf("%s", cliente->cpf);
     getchar();
   }
 
   printf("Telefone:(Só números) ");
-  scanf("%[0-9]", cliente->tel);
+  scanf("%s", cliente->tel);
   getchar();
   while(!validaTel(cliente->tel)){  
     printf("Telefone inválido! Digite novamente: ");
-    scanf("%[0-9]", cliente->tel);
+    scanf("%s", cliente->tel);
     getchar();
   }
 
   printf("E-mail: ");
-  scanf("%[a-z0-9@.]", cliente->email);
+  scanf("%s", cliente->email);
   getchar();
   while(!validaEmail(cliente->email)){
     printf("Email inválido! Digite novamente: ");
-    scanf("%[a-z0-9@.]", cliente->email);
+    scanf("%s", cliente->email);
     getchar();
   }
   cliente->status ='1';
@@ -124,11 +124,11 @@ void tela_pesquisar_clientes(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("CPF:(Só números)\n");
-  scanf("%[0-9]", cpf);
+  scanf("%s", cpf);
   getchar();
   while(!validaCPF(cpf)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[0-9]", cpf);
+    scanf("%s", cpf);
   }
 
   if(fp == NULL){
@@ -190,11 +190,11 @@ void tela_deletar_clientes(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("CPF:(só números) ");
-  scanf("%[0-9]", cpf);
+  scanf("%s", cpf);
   getchar();
   while(!validaCPF(cpf)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[0-9]", cpf);
+    scanf("%s", cpf);
   }
 
   if(fp == NULL){
@@ -202,7 +202,6 @@ void tela_deletar_clientes(void){
   }
 
   while(fread(cliente, sizeof(Cliente), 1, fp)){
-    printf("AAAAAAAAAAAAAAAAAAAAAAAA");
     if(strcmp(cliente->cpf, cpf) == True){
       fwrite(cliente, sizeof(Cliente), 1, f);
     }

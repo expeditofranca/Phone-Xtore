@@ -50,33 +50,33 @@ void tela_cadastrar_produtos(void){
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
   printf("Marca: ");
-  scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", produto->marca);
+  scanf("%s", produto->marca);
   getchar();
   while(!validaNome(produto->marca)){
     printf("Marca inválida! Digite novamente:");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕa-záéíóúâêôçàãõ ]", produto->marca);
+    scanf("%s", produto->marca);
     getchar();
   }
 
   printf("Modelo: ");
-  scanf("%[0-9A-Za-z-]", produto->modelo);
+  scanf("%s", produto->modelo);
   getchar();
     
   printf("Preço: ");
-  scanf("%[0-9,.]", produto->preco);
+  scanf("%s", produto->preco);
   getchar();
   while(!validaPreco(produto->preco)){
     printf("Preço inválido! Digite novamente: ");
-    scanf("%[0-9,.]", produto->preco);
+    scanf("%s", produto->preco);
     getchar();
   }
 
   printf("Estoque: ");
-  scanf("%[^\n]", produto->estoque);
+  scanf("%s", produto->estoque);
   getchar();
   while(!ehNum(produto->estoque)){
     printf("Estoque inválido! Digite novamente:");
-    scanf("%[^\n]", produto->estoque);
+    scanf("%s", produto->estoque);
     getchar();
   }
   produto->status = '1';
@@ -117,11 +117,11 @@ void tela_pesquisar_produtos(void){
   printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("Código:(Só números)\n");
-  scanf("%[0-9]", codigo);
+  scanf("%s", codigo);
   getchar();
   while(!ehNum(codigo)){
     printf("Código inválido. Digite novamente: ");
-    scanf("%[0-9]", codigo);
+    scanf("%s", codigo);
   }
 
   if(fp == NULL){

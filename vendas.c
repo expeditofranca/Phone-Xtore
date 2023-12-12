@@ -59,29 +59,29 @@ void tela_cadastrar_vendas(void){
   printf("///////////////////////////////////////////////////////////////////////////////\n");
 
   printf("CPF do funcionário vendedor: (Só números) ");
-  scanf("%[0-9]", venda->cpfF);
+  scanf("%s", venda->cpfF);
   getchar();
   while(!validaCPF(venda->cpfF)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[0-9]", venda->cpfF);
+    scanf("%s", venda->cpfF);
     getchar();
   }
 
   printf("CPF do cliente: (Só números) ");
-  scanf("%[0-9]", venda->cpfC);
+  scanf("%s", venda->cpfC);
   getchar();
   while(!validaCPF(venda->cpfC)){
     printf("CPF inválido! Digite novamente: ");
-    scanf("%[0-9]", venda->cpfC);
+    scanf("%s", venda->cpfC);
     getchar();
   }
 
   printf("Código do produto: (Só números) ");
-  scanf("%[0-9]", venda->codProd);
+  scanf("%s", venda->codProd);
   getchar();
   while(!ehNum(venda->codProd)){
     printf("Código inválido! Digite novamente: ");
-    scanf("%[0-9]", venda->codProd);
+    scanf("%s", venda->codProd);
     getchar();
   }
 
@@ -110,11 +110,11 @@ void tela_cadastrar_vendas(void){
   while(novoProd != '2'){
     if(novoProd == '1'){
       printf("Código do produto: (Só números) ");
-      scanf("%[0-9]", venda->codProd);
+      scanf("%s", venda->codProd);
       getchar();
       while(!ehNum(venda->codProd)){
         printf("Código inválido! Digite novamente: ");
-        scanf("%[0-9]", venda->codProd);
+        scanf("%s", venda->codProd);
         getchar();
       }
       fwrite(venda, sizeof(Venda), 1, fp);
@@ -155,11 +155,11 @@ void tela_pesquisar_vendas(void){
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("Digite o id: ");
-  scanf("[0-9]", id);
+  scanf("%s", id);
   getchar();
   while(!ehNum(id)){
     printf("Código inválido! Digite novamente");
-    scanf("%[0-9]", id);
+    scanf("%s", id);
   }
 
   if(fp == NULL){
