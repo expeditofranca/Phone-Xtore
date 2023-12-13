@@ -97,9 +97,9 @@ void tela_cadastrar_vendas(void){
     printf("Arquivo não encontrado");
   }
 
-  if(fread(venda, sizeof(Venda), 1, fp) == False){
-    strcpy(venda->id, "1");
-  }
+  // if(fread(venda, sizeof(Venda), 1, fp) == False){
+  //   strcpy(venda->id, "1");
+  // }
 
   fwrite(venda, sizeof(Venda), 1, fp);
 
@@ -189,28 +189,46 @@ void tela_pesquisar_vendas(void){
 
 // Tela deletar venda
 void tela_deletar_vendas(void){
-  // int saida = 1;
-  // int i;
-  // char cod[7];
-  // cabecalho_secundario();
-  // printf("///////////////////////////////////////////////////////////////////////////////\n");
-  // printf("///                                                                         ///\n");
-  // printf("///                    - - - - Deletar Venda - - - -                        ///\n");
-  // printf("///                                                                         ///\n");
-  // printf("///////////////////////////////////////////////////////////////////////////////\n");
-  // printf("Digite o código: \n");
-  // scanf("%s", cod);
-  // while(saida){
-  //   for(i = 0; i < strlen(cod); i++){
-  //     if(!ehNum(cod[i])){
-  //       printf("Código inválido! Digite novamente");
-  //       scanf("%s", cod)
-  //       saída = 1;
-  //     }
-  //   }
-  // }                                                                        ///\n");               
-  // printf("\n");
-  // printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-  // getchar();
+  char* id;
+  id = (char*) malloc(7*sizeof(char));
+  FILE* fp;
+  fp = fopen("vendas.dat", "rb");
+  FILE* f;
+  f = fopen("temp.dat", "ab");
+  Venda* venda;
+  venda = (Venda*) malloc(sizeof(Venda));
+
+  cabecalho_secundario();
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///                    - - - - Deletar Venda - - - -                        ///\n");
+  printf("///                                                                         ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Digite o id: ");
+  scanf("%s", id);
+
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  while(fread(venda, sizeof(Venda), 1, fp)){
+    if(strcmp(venda->id, id) == True){
+      fwrite(venda, sizeof(Venda), 1, f);
+    }
+  }
+
+
+  free(venda);
+  free(id);
+  fclose(fp);
+  fclose(f);           
+  
+  remove("vendas.dat");
+  rename("temp.dat", "vendas.dat");
+                                                              ///\n");               
+  printf("\n");
+  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+  getchar();
 }
 // Fim módulo vendas

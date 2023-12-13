@@ -168,6 +168,15 @@ void tela_atualizar_funcionarios(void){
 
 // Tela deletar funcionário
 void tela_deletar_funcionarios(void){
+  char* cpf;
+  cpf = (char*) malloc(12*sizeof(char));
+  FILE* fp;
+  fp = fopen("funcionarios.dat", "rb");
+  FILE* f;
+  f = fopen("temp.dat", "ab");
+  Funcionario* funcionario;
+  funcionario = (Funcionario*) malloc(sizeof(Funcionario));
+  
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
@@ -176,6 +185,32 @@ void tela_deletar_funcionarios(void){
   printf("///          Digite o CPF (só números):                                     ///\n");
   printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("CPF:(só números) ");
+  scanf("%s", cpf);
+  getchar();
+  while(!validaCPF(cpf)){
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%s", cpf);
+  }
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  while(fread(funcionario, sizeof(Funcionario), 1, fp)){
+    if(strcmp(funcionario->cpf, cpf) == True){
+      fwrite(funcionario, sizeof(Funcionario), 1, f);
+    }
+  }
+
+  free(funcionario);
+  free(cpf);
+  fclose(fp);
+  fclose(f);
+
+  remove("funcionarios.dat");
+  rename("temp.dat", "funcionarios.dat");
+
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();

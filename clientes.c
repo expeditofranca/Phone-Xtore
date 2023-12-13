@@ -94,9 +94,9 @@ void tela_cadastrar_clientes(void){
     printf("Arquivo não encontrado!");
   }
 
-  if(fread(cliente, sizeof(Cliente), 1, fp) == False){
-    strcpy(cliente->id, "1");
-  }
+  // if(fread(cliente, sizeof(Cliente), 1, fp) == False){
+  //   strcpy(cliente->id, "1");
+  // }
 
   fwrite(cliente, sizeof(Cliente), 1, fp);
   fclose(fp);

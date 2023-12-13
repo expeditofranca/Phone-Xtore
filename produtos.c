@@ -85,9 +85,9 @@ void tela_cadastrar_produtos(void){
     printf("Arquivo não encontrado!");
   }
 
-  if(fread(produto, sizeof(Produto), 1, fp) == False){
-    strcpy(produto->codigo, "1");
-  }
+  // if(fread(produto, sizeof(Produto), 1, fp) == False){
+  //   strcpy(produto->codigo, "1");
+  // }
 
   fwrite(produto, sizeof(Produto), 1, fp);
   fclose(fp);
@@ -166,14 +166,49 @@ void tela_atualizar_produtos(void){
 
 // Tela deletar produto
 void tela_deletar_produtos(void){
+  char* codigo;
+  codigo = (char*) malloc(7*sizeof(char));
+  FILE* fp;
+  fp = fopen("produtos.dat", "rb");
+  FILE* f;
+  f = fopen("temp.dat", "ab");
+  Produto* produto;
+  produto = (Produto*) malloc(sizeof(Produto));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Produtos - - - -                     ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código/ a marca/ o modelo:                            ///\n");
+  printf("///          Digite o código:                            ///\n");
   printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("Código:(só números) ");
+  scanf("%s", codigo);
+  getchar();
+  while(!ehNum(cpf)){
+    printf("Código inválido! Digite novamente: ");
+    scanf("%s", codigo);
+  }
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  while(fread(produto, sizeof(Produto), 1, fp)){
+    if(strcmp(produto->codigo, codigo) == True){
+      fwrite(produto, sizeof(Produto), 1, f);
+    }
+  }
+
+  free(produto);
+  free(codigo);
+  fclose(fp);
+  fclose(f);
+
+  remove("funcionarios.dat");
+  rename("temp.dat", "funcionarios.dat");
+
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
