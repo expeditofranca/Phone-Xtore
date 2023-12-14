@@ -39,7 +39,7 @@ int tela_menu_clientes(void){
 void tela_cadastrar_clientes(void){
   Cliente *cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
-  FILE* fp;
+  FILE *fp;
   fp = fopen("clientes.dat", "ab");
   
   // fseek(fp, -sizeof(Cliente), SEEK_END);
@@ -110,11 +110,11 @@ void tela_cadastrar_clientes(void){
 
 // Tela pesquisar cliente
 void tela_pesquisar_clientes(void){
-  char* cpf;
+  char *cpf;
   cpf = (char*) malloc(12*sizeof(char));
-  FILE* fp;
+  FILE *fp;
   fp = fopen("clientes.dat", "rb");
-  Cliente* cliente;
+  Cliente *cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
 
   cabecalho_secundario();
@@ -158,14 +158,89 @@ void tela_pesquisar_clientes(void){
 
 // Tela atualizar cliente
 void tela_atualizar_clientes(void){
+  char *cpf;
+  cpf = (char*) malloc(12*sizeof(char));
+  FILE *fp;
+  fp = fopen("clientes.dat", "rb");
+  FILE *f;
+  f = fopen("temp.dat", "wb");
+  Cliente *cliente;
+  cliente = (Cliente*) malloc(sizeof(Cliente));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Atualizar Cliente - - - -                    ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o CPF (só números):                                     ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("CPF:(só números) ");
+  scanf("%s", cpf);
+  getchar();
+  while(!validaCPF(cpf)){
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%s", cpf);
+    getchar();
+  }
+
+  if(fp == NULL){
+    printf("Arquivo não encontrado!");
+  }
+
+  while(fread(cliente, sizeof(Cliente), 1, fp)){
+    if(strcmp(cliente->cpf, cpf) != 0){
+      fwrite(cliente, sizeof(Cliente), 1, f);
+    } else {
+      char op;
+      printf("O que deseja alterar? \n1 - Nome\n2 - Telefone\n3 - E-mail\n");
+      scanf("%s", &op);
+      getchar();
+      while(!ehNum(&op) || op < '1' || op > '3'){
+        printf("Escolha inválida! Digite novamente: ");
+        scanf("%s", &op);
+        getchar();
+      }
+
+      if(op == '1'){
+        printf("Digite o novo nome: ");
+        scanf("%s", cliente->nome);
+        getchar();
+        while(!validaNome(cliente->nome)){
+          printf("Nome inválido! Digite novamente: ");
+          scanf("%s", cliente->nome);
+          getchar();
+        }
+      } else if (op == '2'){
+        printf("Digite o novo telefone: ");
+        scanf("%s", cliente->tel);
+        getchar();
+        while(!validaTel(cliente->tel)){
+          printf("Telefone inválido! Digite novamente: ");
+          scanf("%s", cliente->tel);
+          getchar();
+        }
+      } else {
+        printf("Digite o novo e-mail: ");
+        scanf("%s", cliente->email);
+        getchar();
+        while(!validaEmail(cliente->email)){
+          printf("E-mail inválido! Digite novamente: ");
+          scanf("%s", cliente->email);
+          getchar();
+        }
+      }
+      fwrite(cliente, sizeof(Cliente), 1, f);
+    }
+  }
+
+  free(cliente);
+  free(cpf);
+  fclose(f);
+  fclose(fp);
+  printf("abc");
+
+  remove("clientes.dat");
+  rename("temp.dat", "clientes.dat");
+  
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
@@ -174,13 +249,13 @@ void tela_atualizar_clientes(void){
 
 // Tela deletar cliente
 void tela_deletar_clientes(void){
-  char* cpf;
+  char *cpf;
   cpf = (char*) malloc(12*sizeof(char));
-  FILE* fp;
+  FILE *fp;
   fp = fopen("clientes.dat", "rb");
-  FILE* f;
-  f = fopen("temp.dat", "ab");
-  Cliente* cliente;
+  FILE *f;
+  f = fopen("temp.dat", "wb");
+  Cliente *cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
 
   cabecalho_secundario();
@@ -202,7 +277,7 @@ void tela_deletar_clientes(void){
   }
 
   while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if(strcmp(cliente->cpf, cpf) == True){
+    if(strcmp(cliente->cpf, cpf) != 0){
       fwrite(cliente, sizeof(Cliente), 1, f);
     }
   }

@@ -204,20 +204,22 @@ void tela_deletar_vendas(void){
   printf("///                    - - - - Deletar Venda - - - -                        ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("Digite o id: ");
+  printf("Digite o id: (Só números) ");
   scanf("%s", id);
-
+  while(!ehNum(id)){
+    printf("Id inválido! Digite novamente: ");
+    scanf("%s", id);
+  }
 
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
 
   while(fread(venda, sizeof(Venda), 1, fp)){
-    if(strcmp(venda->id, id) == True){
+    if(strcmp(venda->id, id) != 0){
       fwrite(venda, sizeof(Venda), 1, f);
     }
   }
-
 
   free(venda);
   free(id);
@@ -226,7 +228,7 @@ void tela_deletar_vendas(void){
   
   remove("vendas.dat");
   rename("temp.dat", "vendas.dat");
-                                                              ///\n");               
+
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();

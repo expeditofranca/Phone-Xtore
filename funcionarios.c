@@ -118,8 +118,6 @@ void tela_pesquisar_funcionarios(void){
   printf("///                                                                         ///\n");
   printf("///                 - - - - Pesquisar Funcionário - - - -                   ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o CPF (só números):                                     ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("CPF:(só números)\n");
   scanf("%s", cpf);
@@ -157,8 +155,6 @@ void tela_atualizar_funcionarios(void){
   printf("///                                                                         ///\n");
   printf("///                    - - - - Atualizar Funcionário - - - -                    ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o CPF (só números):                                     ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -173,17 +169,15 @@ void tela_deletar_funcionarios(void){
   FILE* fp;
   fp = fopen("funcionarios.dat", "rb");
   FILE* f;
-  f = fopen("temp.dat", "ab");
+  f = fopen("temp.dat", "wb");
   Funcionario* funcionario;
   funcionario = (Funcionario*) malloc(sizeof(Funcionario));
   
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
-  printf("///                    - - - - Deletar Funcionário - - - -                      ///\n");
+  printf("///                    - - - - Deletar Funcionário - - - -                  ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o CPF (só números):                                     ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("CPF:(só números) ");
   scanf("%s", cpf);
@@ -198,7 +192,7 @@ void tela_deletar_funcionarios(void){
   }
 
   while(fread(funcionario, sizeof(Funcionario), 1, fp)){
-    if(strcmp(funcionario->cpf, cpf) == True){
+    if(strcmp(funcionario->cpf, cpf) != 0){
       fwrite(funcionario, sizeof(Funcionario), 1, f);
     }
   }

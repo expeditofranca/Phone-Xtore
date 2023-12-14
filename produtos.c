@@ -113,10 +113,8 @@ void tela_pesquisar_produtos(void){
   printf("///                                                                         ///\n");
   printf("///                    - - - - Pesquisar Produtos - - - -                   ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código:                                               ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("Código:(Só números)\n");
+  printf("Código:(Só números) ");
   scanf("%s", codigo);
   getchar();
   while(!ehNum(codigo)){
@@ -171,7 +169,7 @@ void tela_deletar_produtos(void){
   FILE* fp;
   fp = fopen("produtos.dat", "rb");
   FILE* f;
-  f = fopen("temp.dat", "ab");
+  f = fopen("temp.dat", "wb");
   Produto* produto;
   produto = (Produto*) malloc(sizeof(Produto));
 
@@ -180,13 +178,11 @@ void tela_deletar_produtos(void){
   printf("///                                                                         ///\n");
   printf("///                    - - - - Deletar Produtos - - - -                     ///\n");
   printf("///                                                                         ///\n");
-  printf("///          Digite o código:                            ///\n");
-  printf("///                                                                         ///\n");               
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("Código:(só números) ");
   scanf("%s", codigo);
   getchar();
-  while(!ehNum(cpf)){
+  while(!ehNum(codigo)){
     printf("Código inválido! Digite novamente: ");
     scanf("%s", codigo);
   }
@@ -196,7 +192,7 @@ void tela_deletar_produtos(void){
   }
 
   while(fread(produto, sizeof(Produto), 1, fp)){
-    if(strcmp(produto->codigo, codigo) == True){
+    if(strcmp(produto->codigo, codigo) != 0){
       fwrite(produto, sizeof(Produto), 1, f);
     }
   }
