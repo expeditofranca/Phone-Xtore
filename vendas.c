@@ -190,6 +190,7 @@ void tela_pesquisar_vendas(void){
 // Tela deletar venda
 void tela_deletar_vendas(void){
   char* id;
+  char op;
   id = (char*) malloc(7*sizeof(char));
   FILE* fp;
   fp = fopen("vendas.dat", "rb");
@@ -215,8 +216,26 @@ void tela_deletar_vendas(void){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(venda, sizeof(Venda), 1, fp)){
-    if(strcmp(venda->id, id) != 0){
+  printf("1 - Excluir permanentemente\n2 - Desativar o status ON do registro:\n");
+  scanf("%s", &op);
+  getchar();
+  while(!ehNum(&op) || op < '1' || op > '2'){
+    printf("Escolha inválida! Digite novamente: ");
+    scanf("%s", &op);
+    getchar();
+  }
+
+  if(op == '1'){
+    while(fread(venda, sizeof(Venda), 1, fp)){
+      if(strcmp(venda->id, id) != 0){
+        fwrite(venda, sizeof(Venda), 1, f);
+      }
+    }
+  } else {
+    while(fread(venda, sizeof(Venda), 1, fp)){
+      if(strcmp(venda->id, id) == 0){
+        venda->status = '0';
+      }
       fwrite(venda, sizeof(Venda), 1, f);
     }
   }

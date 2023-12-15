@@ -165,6 +165,7 @@ void tela_atualizar_produtos(void){
 // Tela deletar produto
 void tela_deletar_produtos(void){
   char* codigo;
+  char op;
   codigo = (char*) malloc(7*sizeof(char));
   FILE* fp;
   fp = fopen("produtos.dat", "rb");
@@ -191,8 +192,26 @@ void tela_deletar_produtos(void){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(produto, sizeof(Produto), 1, fp)){
-    if(strcmp(produto->codigo, codigo) != 0){
+  printf("1 - Excluir permanentemente\n2 - Desativar o status ON do registro:\n");
+  scanf("%s", &op);
+  getchar();
+  while(!ehNum(&op) || op < '1' || op > '2'){
+    printf("Escolha inválida! Digite novamente: ");
+    scanf("%s", &op);
+    getchar();
+  }
+
+  if(op == '1'){
+    while(fread(produto, sizeof(Produto), 1, fp)){
+      if(strcmp(produto->codigo, codigo) != 0){
+        fwrite(produto, sizeof(Produto), 1, f);
+      }
+    }
+  } else {
+    while(fread(produto, sizeof(Produto), 1, fp)){
+      if(strcmp(produto->codigo, codigo) == 0){
+        produto->status = '0';
+      }
       fwrite(produto, sizeof(Produto), 1, f);
     }
   }

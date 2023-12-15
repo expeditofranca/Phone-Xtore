@@ -42,9 +42,6 @@ void tela_cadastrar_clientes(void){
   FILE *fp;
   fp = fopen("clientes.dat", "ab");
   
-  // fseek(fp, -sizeof(Cliente), SEEK_END);
-  // fread(&cliente, sizeof(Cliente), 1, fp);
-  // strcpy(cliente->id, id);
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -94,9 +91,13 @@ void tela_cadastrar_clientes(void){
     printf("Arquivo não encontrado!");
   }
 
-  // if(fread(cliente, sizeof(Cliente), 1, fp) == False){
-  //   strcpy(cliente->id, "1");
-  // }
+  if(fread(cliente, sizeof(Cliente), 1, fp) == False){
+    cliente->id = '1';
+  } else {
+    fseek(fp, -sizeof(Cliente), SEEK_END);
+    fread(cliente, sizeof(Cliente), 1, fp);
+    strcpy(cliente->id, id);
+  }
 
   fwrite(cliente, sizeof(Cliente), 1, fp);
   fclose(fp);
@@ -250,6 +251,7 @@ void tela_atualizar_clientes(void){
 // Tela deletar cliente
 void tela_deletar_clientes(void){
   char *cpf;
+  char op;
   cpf = (char*) malloc(12*sizeof(char));
   FILE *fp;
   fp = fopen("clientes.dat", "rb");
@@ -272,20 +274,51 @@ void tela_deletar_clientes(void){
     scanf("%s", cpf);
   }
 
-  if(fp == NULL){
+  if(fp == NULL || f == NULL){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(cliente, sizeof(Cliente), 1, fp)){
-    if(strcmp(cliente->cpf, cpf) != 0){
+  printf("1 - Excluir permanentemente\n2 - Desativar o status ON do registro:\n");
+  scanf("%s", &op);
+  getchar();
+  while(!ehNum(&op) || op < '1' || op > '2'){
+    printf("Escolha inválida! Digite novamente: ");
+    scanf("%s", &op);
+    getchar();
+  }
+
+  if(op == '1'){
+    while(fread(cliente, sizeof(Cliente), 1, fp)){
+      printf("-1");
+      if(strcmp(cliente->cpf, cpf) != 0){
+        printf("%s", cliente->cpf);
+        fwrite(cliente, sizeof(Cliente), 1, f);
+        printf("%s", cliente->cpf);
+      }
+      // break;
+      printf("1");
+      // printf("%s", cliente->cpf);
+    }
+    printf("2");
+    // printf("%s", cliente->cpf);
+  } else {
+    while(fread(cliente, sizeof(Cliente), 1, fp)){
+      if(strcmp(cliente->cpf, cpf) == 0){
+        cliente->status = '0';
+      }
       fwrite(cliente, sizeof(Cliente), 1, f);
     }
   }
+  printf("3");
 
-  free(cliente);
-  free(cpf);
   fclose(fp);
+  printf("a");
   fclose(f);
+  printf("b");
+  free(cliente);
+  printf("c");
+  free(cpf);
+  printf("d");
 
   remove("clientes.dat");
   rename("temp.dat", "clientes.dat");

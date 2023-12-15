@@ -165,6 +165,7 @@ void tela_atualizar_funcionarios(void){
 // Tela deletar funcionário
 void tela_deletar_funcionarios(void){
   char* cpf;
+  char op;
   cpf = (char*) malloc(12*sizeof(char));
   FILE* fp;
   fp = fopen("funcionarios.dat", "rb");
@@ -191,8 +192,26 @@ void tela_deletar_funcionarios(void){
     printf("Arquivo não encontrado!");
   }
 
-  while(fread(funcionario, sizeof(Funcionario), 1, fp)){
-    if(strcmp(funcionario->cpf, cpf) != 0){
+  printf("1 - Excluir permanentemente\n2 - Desativar o status ON do registro:\n");
+  scanf("%s", &op);
+  getchar();
+  while(!ehNum(&op) || op < '1' || op > '2'){
+    printf("Escolha inválida! Digite novamente: ");
+    scanf("%s", &op);
+    getchar();
+  }
+
+  if(op == '1'){
+    while(fread(funcionario, sizeof(Funcionario), 1, fp)){
+      if(strcmp(funcionario->cpf, cpf) != 0){
+        fwrite(funcionario, sizeof(Funcionario), 1, f);
+      }
+    }
+  } else {
+    while(fread(funcionario, sizeof(Funcionario), 1, fp)){
+      if(strcmp(funcionario->cpf, cpf) == 0){
+        funcionario->status = '0';
+      }
       fwrite(funcionario, sizeof(Funcionario), 1, f);
     }
   }
