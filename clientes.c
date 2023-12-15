@@ -309,16 +309,16 @@ void tela_deletar_clientes(void){
       fwrite(cliente, sizeof(Cliente), 1, f);
     }
   }
-  printf("3");
+  // printf("3");
 
   fclose(fp);
-  printf("a");
+  // printf("a");
   fclose(f);
-  printf("b");
+  // printf("b");
   free(cliente);
-  printf("c");
+  // printf("c");
   free(cpf);
-  printf("d");
+  // printf("d");
 
   remove("clientes.dat");
   rename("temp.dat", "clientes.dat");
