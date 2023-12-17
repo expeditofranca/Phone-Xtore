@@ -115,6 +115,10 @@ int main(void) {
           while (op3 != 0) {
             if (op3 == 1) {
               tela_relatorio_geral_vendas();
+            } else if (op3 == 2) {
+              tela_relatorio_vendas_funcionario();
+            } else if (op3 == 3) {
+              tela_relatorio_vendas_cliente();
             } else {
               msg_escolha_invalida();
             }

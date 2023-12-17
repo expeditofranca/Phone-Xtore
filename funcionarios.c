@@ -8,8 +8,6 @@
 #define True 1
 #define False 0
 
-typedef struct funcionario Funcionario;
-
 // Módulo funcionários
 // Tela menu funcionários
 int tela_menu_funcionarios(void){
@@ -37,10 +35,13 @@ int tela_menu_funcionarios(void){
 
 // Tela cadastrar funcionário
 void tela_cadastrar_funcionarios(void){
+  char *id;
+  id = (char*) malloc(7*sizeof(char));
+  int i = 0;
   Funcionario *funcionario;
   funcionario = (Funcionario*) malloc(sizeof(Funcionario));
   FILE* fp;
-  fp = fopen("funcionarios.dat", "ab");
+  fp = fopen("funcionarios.dat", "rb");
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -48,6 +49,14 @@ void tela_cadastrar_funcionarios(void){
   printf("///                  - - - - Cadastrar Funcionário - - - -                  ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  while(fread(funcionario, sizeof(Funcionario), 1, fp)){
+    printf("0");
+    i++;
+  }
+  fclose(fp);
+
+  fp = fopen("funcionarios.dat", "ab");
 
   printf("Nome: ");
   scanf("%s", funcionario->nome);
@@ -90,13 +99,13 @@ void tela_cadastrar_funcionarios(void){
     printf("Arquivo não encontrado!");
   }
 
-  if(fread(funcionario, sizeof(Funcionario), 1, fp) == False){
-    strcpy(funcionario->id, "1");
-  }
+  sprintf(id, "%d", i + 1);
+  strcpy(funcionario->id, id);
 
   fwrite(funcionario, sizeof(Funcionario), 1, fp);
   fclose(fp);
   free(funcionario);
+  free(id);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -119,11 +128,11 @@ void tela_pesquisar_funcionarios(void){
   printf("///                 - - - - Pesquisar Funcionário - - - -                   ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("CPF:(só números)\n");
+  printf("CPF:(só números) ");
   scanf("%s", cpf);
   getchar();
   while(!validaCPF(cpf)){
-    printf("CPF inválido! Digite novamente:\n");
+    printf("CPF inválido! Digite novamente: ");
     scanf("%s", cpf);
   }
 

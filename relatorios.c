@@ -56,8 +56,8 @@ int tela_relatorios_clientes(void){
 // Tela relatório geral de clientes
 void tela_relatorio_geral_clientes(void){
   FILE *fp;
-  Cliente* cliente;
   fp = fopen("clientes.dat", "rb");
+  Cliente* cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
 
   cabecalho_secundario();
@@ -192,6 +192,8 @@ int tela_relatorios_vendas(void){
   printf("///                   - - - - Relatórios de Vendas - - - -                  ///\n");
   printf("///                                                                         ///\n");
   printf("///           1 - Relatório Geral de Vendas                                 ///\n");
+  printf("///           2 - Vendas por Funcionário                                 ///\n");
+  printf("///           3 - Vendas por Cliente                                 ///\n");
   printf("///           0 - Sair                                                      ///\n");
   printf("///                                                                         ///\n");
   printf("///           Escolha a opção que deseja:                                   ///\n");
@@ -206,15 +208,162 @@ int tela_relatorios_vendas(void){
 
 // Tela relatório geral de vendas
 void tela_relatorio_geral_vendas(void){
+  FILE *fp;
+  fp = fopen("vendas.dat", "rb");
+  Venda* venda;
+  venda = (Venda*) malloc(sizeof(Venda));
+
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///               - - - - Relatório Geral de Vendas - - - -                 ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+  
+  while(fread(venda, sizeof(Venda), 1, fp)){
+    printf("CPF Funcionário: %s\n", venda->cpfF);
+    printf("CPF Cliente: %s\n", venda->cpfC);
+    printf("Código do Produto: %s\n", venda->codProd);
+    printf("Data da Venda: %s\n", venda->data);
+    printf("Valor da Venda: %s\n", venda->valor);
+    printf("Status: %c\n", venda->status);
+    printf("Id: %s\n", venda->id);
+  }  
+
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
   getchar();
 }
 // Fim tela relatório geral de vendas
+
+// Tela relatório vendas por funcionário
+void tela_relatorio_vendas_funcionario(void){
+  int vendas = 0;
+  char *cpfF;
+  cpfF = (char*) malloc(12*sizeof(char));
+  FILE *fv;
+  fv = fopen("vendas.dat", "rb");
+  FILE *ff;
+  ff = fopen("funcionarios.dat", "rb");
+  Venda* venda;
+  venda = (Venda*) malloc(sizeof(Venda));
+  Funcionario* funcionario;
+  funcionario = (Funcionario*) malloc(sizeof(Funcionario));
+
+  cabecalho_secundario();
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///            - - - - Relatório Vendas Por Funcionario - - - -             ///\n");
+  printf("///                                                                         ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("CPF do funcionário:(só números) ");
+  scanf("%s", cpfF);
+  getchar();
+  while(!validaCPF(cpfF)){
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%s", cpfF);
+  }
+
+  int f = 0;
+  while(fread(funcionario, sizeof(Funcionario), 1, ff)){
+    if(strcmp(funcionario->cpf, cpfF) == 0){
+      f++;
+    }
+  }
+
+  if(f == 0){
+    printf("Funcionário não encontrado!");
+  } else {
+    while(fread(venda, sizeof(Venda), 1, fv)){
+      if(strcmp(venda->cpfF, cpfF) == 0){
+        printf("CPF Cliente: %s\n", venda->cpfC);
+        printf("Código do Produto: %s\n", venda->codProd);
+        printf("Data da Venda: %s\n", venda->data);
+        printf("Valor da Venda: %s\n", venda->valor);
+        printf("Status: %c\n", venda->status);
+        printf("Id: %s\n", venda->id);
+        vendas++;
+      }
+    } 
+    printf("O funcionário %s realizou %d vendas: ", (cpfF, vendas));
+  }
+
+  fclose(fv); 
+  fclose(ff);
+  free(funcionario); 
+  free(venda); 
+  free(cpfF); 
+
+  printf("\n");
+  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+  getchar();
+}
+// Fim tela relatório vendas por funcionário
+
+// Tela relatório vendas por cliente
+void tela_relatorio_vendas_cliente(void){
+  int vendas = 0;
+  char *cpfC;
+  cpfC = (char*) malloc(12*sizeof(char));
+  FILE *fv;
+  fv = fopen("vendas.dat", "rb");
+  FILE *fc;
+  fc = fopen("clientes.dat", "rb");
+  Venda* venda;
+  venda = (Venda*) malloc(sizeof(Venda));
+  Cliente* cliente;
+  cliente = (Cliente*) malloc(sizeof(Cliente));
+
+  cabecalho_secundario();
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("///                                                                         ///\n");
+  printf("///            - - - - Relatório Vendas Por Cliente - - - -             ///\n");
+  printf("///                                                                         ///\n");
+  printf("///////////////////////////////////////////////////////////////////////////////\n");
+  printf("CPF do cliente:(só números) ");
+  scanf("%s", cpfC);
+  getchar();
+  while(!validaCPF(cpfC)){
+    printf("CPF inválido! Digite novamente: ");
+    scanf("%s", cpfC);
+  }
+
+  int f = 0;
+  while(fread(cliente, sizeof(Cliente), 1, fc)){
+    if(strcmp(cliente->cpf, cpfC) == 0){
+      f++;
+    }
+  }
+
+  if(f == 0){
+    printf("Cliente não encontrado!");
+  } else {
+    while(fread(venda, sizeof(Venda), 1, fv)){
+      printf("1");
+      if(strcmp(venda->cpfC, cpfC) == 0){
+        printf("CPF funcionário: %s\n", venda->cpfF);
+        printf("CPF cliente: %s\n", venda->cpfC);
+        printf("Código do produto: %s\n", venda->codProd);
+        printf("Data: %s\n", venda->data);
+        printf("Valor: %s\n", venda->valor);
+        printf("Id: %s\n", venda->id);
+        printf("Status: %c\n", venda->status);
+        vendas++;
+      }
+    }
+    printf("O cliente %s ", venda->cpfC);
+    printf("realizou %d vendas", vendas);
+  }
+
+  fclose(fv); 
+  fclose(fc);
+  free(cliente); 
+  free(venda); 
+  free(cpfC); 
+
+  printf("\n");
+  printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+  getchar();
+}
+// Fim tela relatório vendas por cliente
 // Fim módulo relatórios

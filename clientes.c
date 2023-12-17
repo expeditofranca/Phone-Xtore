@@ -8,8 +8,6 @@
 #define True 1
 #define False 0
 
-typedef struct cliente Cliente;
-
 // Módulo clientes
 // Tela menu clientes
 int tela_menu_clientes(void){
@@ -37,18 +35,28 @@ int tela_menu_clientes(void){
 
 // Tela cadastrar cliente
 void tela_cadastrar_clientes(void){
+  char *id;
+  id = (char*) malloc(7*sizeof(char));
+  int i = 0;
   Cliente *cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
   FILE *fp;
-  fp = fopen("clientes.dat", "ab");
+  fp = fopen("clientes.dat", "rb");
   
-
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
   printf("///                                                                         ///\n");
   printf("///                    - - - - Cadastrar Cliente - - - -                    ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  while(fread(cliente, sizeof(Cliente), 1, fp)){
+    printf("0");
+    i++;
+  }
+  fclose(fp);
+
+  fp = fopen("clientes.dat", "ab");
 
   printf("Nome: ");
   scanf("%s", cliente->nome);
@@ -90,18 +98,14 @@ void tela_cadastrar_clientes(void){
   if(fp == NULL){
     printf("Arquivo não encontrado!");
   }
-
-  if(fread(cliente, sizeof(Cliente), 1, fp) == False){
-    cliente->id = '1';
-  } else {
-    fseek(fp, -sizeof(Cliente), SEEK_END);
-    fread(cliente, sizeof(Cliente), 1, fp);
-    strcpy(cliente->id, id);
-  }
+  
+  sprintf(id, "%d", i + 1);
+  strcpy(cliente->id, id);
 
   fwrite(cliente, sizeof(Cliente), 1, fp);
   fclose(fp);
   free(cliente);
+  free(id);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -124,7 +128,7 @@ void tela_pesquisar_clientes(void){
   printf("///                    - - - - Pesquisar Cliente - - - -                    ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
-  printf("CPF:(Só números)\n");
+  printf("CPF:(Só números) ");
   scanf("%s", cpf);
   getchar();
   while(!validaCPF(cpf)){
@@ -256,7 +260,7 @@ void tela_deletar_clientes(void){
   FILE *fp;
   fp = fopen("clientes.dat", "rb");
   FILE *f;
-  f = fopen("temp.dat", "wb");
+  f = fopen("temp.dat", "ab");
   Cliente *cliente;
   cliente = (Cliente*) malloc(sizeof(Cliente));
 
@@ -290,14 +294,14 @@ void tela_deletar_clientes(void){
   if(op == '1'){
     while(fread(cliente, sizeof(Cliente), 1, fp)){
       printf("-1");
-      if(strcmp(cliente->cpf, cpf) != 0){
-        printf("%s", cliente->cpf);
-        fwrite(cliente, sizeof(Cliente), 1, f);
-        printf("%s", cliente->cpf);
-      }
-      // break;
-      printf("1");
-      // printf("%s", cliente->cpf);
+      // if(strcmp(cliente->cpf, cpf) != 0){
+      //   printf("%s", cliente->cpf);
+      //   fwrite(cliente, sizeof(Cliente), 1, f);
+      //   printf("%s", cliente->cpf);
+      // }
+      // // break;
+      // printf("1");
+      // // printf("%s", cliente->cpf);
     }
     printf("2");
     // printf("%s", cliente->cpf);

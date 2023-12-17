@@ -11,3 +11,5 @@ void tela_relatorio_geral_funcionarios(void);
 
 int tela_relatorios_vendas(void);
 void tela_relatorio_geral_vendas(void);
+void tela_relatorio_vendas_funcionario(void);
+void tela_relatorio_vendas_cliente(void);

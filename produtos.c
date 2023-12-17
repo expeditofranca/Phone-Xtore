@@ -8,8 +8,6 @@
 #define True 1
 #define False 0
 
-typedef struct produto Produtos;
-
 // Módulo produtos
 // Tela menu produtos
 int tela_menu_produtos(void){
@@ -37,10 +35,13 @@ int tela_menu_produtos(void){
 
 // Tela cadastrar produto
 void tela_cadastrar_produtos(void){
+  char *codigo;
+  codigo = (char*) malloc(7*sizeof(char));
+  int i = 0;
   Produto *produto;
   produto = (Produto*) malloc(sizeof(Produto));
   FILE* fp;
-  fp = fopen("produtos.dat", "ab");
+  fp = fopen("produtos.dat", "rb");
 
   cabecalho_secundario();
   printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -48,6 +49,14 @@ void tela_cadastrar_produtos(void){
   printf("///                    - - - - Cadastrar Produto - - - -                    ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  while(fread(produto, sizeof(Produto), 1, fp)){
+    printf("0");
+    i++;
+  }
+  fclose(fp);
+
+  fp = fopen("produtos.dat", "ab");
 
   printf("Marca: ");
   scanf("%s", produto->marca);
@@ -85,13 +94,13 @@ void tela_cadastrar_produtos(void){
     printf("Arquivo não encontrado!");
   }
 
-  // if(fread(produto, sizeof(Produto), 1, fp) == False){
-  //   strcpy(produto->codigo, "1");
-  // }
+  sprintf(codigo, "%d", i + 1);
+  strcpy(produto->codigo, codigo);
 
   fwrite(produto, sizeof(Produto), 1, fp);
   fclose(fp);
   free(produto);
+  free(codigo);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

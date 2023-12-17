@@ -12,8 +12,6 @@
 #define True 1
 #define False 0
 
-typedef struct venda Venda;
-
 // Módulo vendas
 // Tela vendas
 int tela_menu_vendas(void){
@@ -42,10 +40,17 @@ int tela_menu_vendas(void){
 
 // Tela cadastrar vendas
 void tela_cadastrar_vendas(void){
+  char *id;
+  id = (char*) malloc(7*sizeof(char));
+  int i = 0;
   Venda *venda;
   venda = (Venda*) malloc(sizeof(Venda));
+  Produto *produto;
+  produto = (Produto*) malloc(sizeof(Produto));
+  FILE* fv;
+  fv = fopen("vendas.dat", "rb");
   FILE* fp;
-  fp = fopen("vendas.dat", "ab");
+  fp = fopen("produtos.dat", "rb");
   FILE* fc;
   fc = fopen("clientes.dat", "rb");
   FILE* ff;
@@ -57,6 +62,14 @@ void tela_cadastrar_vendas(void){
   printf("///                      - - - - Cadastrar Vendas - - - -                   ///\n");
   printf("///                                                                         ///\n");
   printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+  while(fread(venda, sizeof(Venda), 1, fv)){
+    printf("0");
+    i++;
+  }
+  fclose(fv);
+
+  fv = fopen("vendas.dat", "ab");
 
   printf("CPF do funcionário vendedor: (Só números) ");
   scanf("%s", venda->cpfF);
@@ -91,17 +104,22 @@ void tela_cadastrar_vendas(void){
   sprintf(data, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
   strcpy(venda->data, data);
 
+  while(fread(produto, sizeof(Produto), 1, fp)){
+    if(strcmp(produto->codigo, venda->codProd) == 0){
+      strcpy(venda->valor, produto->preco);
+    }
+  }
+
   venda->status = '1';
 
   if(fp == NULL){
     printf("Arquivo não encontrado");
   }
 
-  // if(fread(venda, sizeof(Venda), 1, fp) == False){
-  //   strcpy(venda->id, "1");
-  // }
+  sprintf(id, "%d", i + 1);
+  strcpy(venda->id, id);
 
-  fwrite(venda, sizeof(Venda), 1, fp);
+  fwrite(venda, sizeof(Venda), 1, fv);
 
   char novoProd;
   printf("Deseja comprar outro produto?\n1 - Sim\n2 - Não\n");
@@ -117,7 +135,7 @@ void tela_cadastrar_vendas(void){
         scanf("%s", venda->codProd);
         getchar();
       }
-      fwrite(venda, sizeof(Venda), 1, fp);
+      fwrite(venda, sizeof(Venda), 1, fv);
       printf("Deseja comprar outro produto?\n1 - Sim\n2 - Não\n");
       scanf("%s", &novoProd);
       getchar();
@@ -128,10 +146,12 @@ void tela_cadastrar_vendas(void){
     }
   }
 
+  fclose(fv);
   fclose(fp);
   fclose(fc);
   fclose(ff);
   free(venda);
+  free(id);
 
   printf("\n");
   printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
