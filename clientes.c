@@ -293,18 +293,10 @@ void tela_deletar_clientes(void){
 
   if(op == '1'){
     while(fread(cliente, sizeof(Cliente), 1, fp)){
-      printf("-1");
-      // if(strcmp(cliente->cpf, cpf) != 0){
-      //   printf("%s", cliente->cpf);
-      //   fwrite(cliente, sizeof(Cliente), 1, f);
-      //   printf("%s", cliente->cpf);
-      // }
-      // // break;
-      // printf("1");
-      // // printf("%s", cliente->cpf);
+      if(strcmp(cliente->cpf, cpf) != 0){
+        fwrite(cliente, sizeof(Cliente), 1, f);
+      }
     }
-    printf("2");
-    // printf("%s", cliente->cpf);
   } else {
     while(fread(cliente, sizeof(Cliente), 1, fp)){
       if(strcmp(cliente->cpf, cpf) == 0){
@@ -313,16 +305,11 @@ void tela_deletar_clientes(void){
       fwrite(cliente, sizeof(Cliente), 1, f);
     }
   }
-  // printf("3");
 
   fclose(fp);
-  // printf("a");
   fclose(f);
-  // printf("b");
   free(cliente);
-  // printf("c");
   free(cpf);
-  // printf("d");
 
   remove("clientes.dat");
   rename("temp.dat", "clientes.dat");
